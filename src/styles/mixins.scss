@@ -1,0 +1,117 @@
+// 1. BREAKPOINT VARS & MIXINS
+
+// --------------------------------------------------------------- 1. BREAKPOINT VARS & MIXINS
+$screen-min-xxs: 360px;
+$screen-min-xs: 480px;
+$screen-min-sm: 768px;
+$screen-min-md: 992px;
+$screen-min-lg: 1200px;
+$screen-min-xlg: 1366px;
+$screen-min-xxlg: 1441px;
+$screen-min-xxxlg: 1920px;
+
+@mixin screen-min-mobile {
+    // must be 480 = mobile
+    @media (min-width: #{$screen-min-xs}) {
+        @content;
+    }
+}
+
+@mixin screen-min-tablet {
+    // must be 768 = tablet
+    @media (min-width: #{$screen-min-sm}) {
+        @content;
+    }
+}
+
+@mixin screen-min-desktop {
+    // must be 992 = small desktop
+    @media (min-width: #{$screen-min-md}) {
+        @content;
+    }
+}
+
+@mixin screen-min-desktop-lg {
+    // must be 1200 - standard desktop
+    @media (min-width: #{$screen-min-lg}) {
+        @content;
+    }
+}
+
+@mixin screen-min-desktop-xlg {
+    // must be 1366 - large desktop
+    @media (min-width: #{$screen-min-xlg}) {
+        @content;
+    }
+}
+
+@mixin screen-min-desktop-xxlg {
+    // must be 1441 = fancy desktop
+    @media (min-width: #{$screen-min-xxlg}) {
+        @content;
+    }
+}
+
+$screen-max-xxs: $screen-min-xxs - 1px;
+$screen-max-xs: $screen-min-xs - 1px;
+$screen-max-sm: $screen-min-sm - 1px;
+$screen-max-md: $screen-min-md - 1px;
+$screen-max-lg: $screen-min-lg - 1px;
+$screen-max-xlg: $screen-min-xlg - 1px;
+$screen-max-xxlg: $screen-min-xxlg - 1px;
+
+@mixin screen-max-mobile {
+    // up to 479 = screens smaller than mobile
+    @media (max-width: #{$screen-max-xs}) {
+        @content;
+    }
+}
+
+@mixin screen-max-mobile-xs {
+    // up to 360 = screens smaller than small mobile
+    @media (max-width: #{$screen-max-xxs}) {
+        @content;
+    }
+}
+
+@mixin screen-max-tablet {
+    // up to 767 = screens smaller than tablet
+    @media (max-width: #{$screen-max-sm}) {
+        @content;
+    }
+}
+
+@mixin screen-max-desktop {
+    // up to 991 = screens smaller than a small desktop
+    @media (max-width: #{$screen-max-md}) {
+        @content;
+    }
+}
+
+@mixin screen-max-desktop-lg {
+    // up to 1199 = screens smaller than a standard desktop
+    @media (max-width: #{$screen-max-lg}) {
+        @content;
+    }
+}
+
+@mixin screen-max-desktop-xlg {
+    // must be 1366 - large desktop
+    @media (max-width: #{$screen-max-xlg}) {
+        @content;
+    }
+}
+
+@mixin screen-max-desktop-xxlg {
+    // must be 1441 = fancy desktop
+    @media (max-width: #{$screen-max-xxlg}) {
+        @content;
+    }
+}
+
+@mixin text-truncate($lineClamp) {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: if($lineClamp, $lineClamp, 1);
+    -webkit-box-orient: vertical;
+}
