@@ -1,0 +1,695 @@
+@use 'mixins' as *;
+
+// 1. OUR VARS
+// -- a. COLORS
+// -- b. SPACINGS
+// -- b. METRICS
+// 2. GENERAL RESET
+// 3. CORE
+// 4. FORM ELEMENTS
+// 5. CUSTOM ACTIONS (LINKS/BUTTONS/WRAPPERS/HEADERS)
+// 6. GOOGLE MAPS
+
+// --------------------------------------------------------------- 1. OUR VARS
+:root {
+    // ----------------------------------------- a. COLORS
+    --color-primary-yellow: #feee00;
+    --color-primary-yellow-muted: #c7ba00;
+    --color-primary-yellow-light: #fffccf;
+    --color-primary-blue: #3866df;
+    --color-primary-blue2: #3466ea;
+    --color-primary-blue-darker: #e8edfb;
+    --color-primary-blue-light: #edf2ff;
+    --color-primary-blue-lighter: #3e72f7;
+    --color-primary-blue-lightest: #e8edfb;
+    --color-primary-black: #404553;
+    --color-primary-black2: #404553cc;
+    --color-primary-black3: #262a33;
+    --color-white: #fff;
+    --color-whitesmoke: #f5f5f5;
+    --color-black: #000;
+    --color-black-primary: #0e0e0e;
+    --color-grey1: #7e859b;
+    --color-grey2: #9ba0b1;
+    --color-grey3: #dadce3;
+    --color-grey4: #f3f4f8;
+    --color-grey5: #4b4b4b;
+    --color-grey6: #eceef4;
+    --color-grey7: #f7f7f7;
+    --color-grey8: #f2f2f2;
+    --color-grey9: #1d2539;
+    --color-grey10: #666d85;
+    --color-grey11: #f2f3f7;
+    --color-grey12: #fcfcfd;
+    --color-grey13: #5d5d5d;
+    --color-grey14: #d2d6de;
+    --color-grey-borders: #e5e5e5;
+    --color-grey-separator: #edeef2;
+    --color-grey-light: #667085;
+    --color-grey-dark: #4a4a4a;
+    --color-manatee: #8d94a7;
+    --color-system-green: #38ae04;
+    --color-dark-green: #008200;
+    --color-loyalty-green: #2f7c0d;
+    --color-system-green-tint: #dff1da;
+    --color-system-green-tint-light: #38ae040d;
+    --color-system-orange: #f3ac30;
+    --color-system-orange-tint: #fff8ec;
+    --color-system-yellow-tint: #fcfbf5;
+    --color-system-red: #fa0000;
+    --color-system-red-alt: #ea2b2b;
+    --color-system-red-pure: #f00;
+    --color-system-warning: #ce0f0f;
+    --color-system-red-tint: #fdecec;
+    --color-system-red-tint-light: #f7f7f7;
+    --color-system-blue-tint: #eff3fd;
+    --color-scrim: rgb(0 0 0 / 40%);
+    --color-control-disabled: #cbcfd7;
+    --color-control-disabled-bg: #f0f1f4;
+    --color-cta-disabled-bg: #f0f0f2;
+    --color-cta-disabled-body: #b2bbd2;
+    --color-vip-black: #1c1c1b;
+    --color-vip-disable: #eceef4;
+    --color-bg-tertiary: #f7f7fa;
+    --color-bg-support: #fcfbf4;
+    --color-bg-support-alt: #f7f9fe;
+    --color-bg-support-light: #f1f4fd;
+    --color-bg-modal: #f6f7f9;
+    --color-light-cream: #f4fcee;
+    --color-green: #2daf32;
+    --color-body-light: #e2e5f1;
+    --color-body-muted: #b2bbd2;
+    --color-border: #f1f3f9;
+    --color-border-light: #ebecf0;
+    --color-border-light-shadow: #f1f1f1;
+    --color-border-blue-haze: #c6ccdd;
+    --color-border-blue-light: #f0f2f7;
+    --color-rocket-yellow: #f3e00a;
+    --color-border-rocket-yellow: #f1de0a;
+    --color-font-light: #b2b8ca;
+    --color-off-white: #fcfbf5;
+    --color-supermall-bg: #2122b8;
+    --color-minutes-bg: #cf2b2c;
+    --color-general-positive: #e4f7db;
+    --color-font-shadow-blue: #7c87a8;
+    --color-bg-approve-light: #eff9ec;
+    --color-enbd-black: #1b1a1c;
+    --color-enbd-green: #c2f770;
+    --color-bluebonnet: #241afc;
+    --color-american-blue: #454373;
+    --color-blue-bell: #9b98db;
+    --color-blue-bell-muted: #241afc0f;
+    --color-light-orange: #ca8b58;
+    --color-purple: #b22eff;
+    --color-blue: #0062ff;
+    --color-blue-narwhal: #1453a3;
+    --color-blue-tint-lightest: #f5f8fd;
+    --color-dark-gold: #b8860b;
+
+    // ----------------------------------------- b. SPACING
+    --spacing-site-horz: 16px;
+    --spacing-xxsmall: 2px;
+    --spacing-xsmall: 4px;
+    --spacing-small: 8px;
+    --spacing-small-medium: 12px;
+    --spacing-medium: 16px;
+    --spacing-medium-large: 24px;
+    --spacing-large: 32px;
+    --spacing-xlarge: 40px;
+    --spacing-xxlarge: 48px;
+
+    // ----------------------------------------- c. METRICS
+    --site-max-width-desktop: 1512px; // to maintain an upper limit and consistent looking site width for wider screens
+
+    // DESKTOP SPECIFIC
+    --dweb-header-height: 60px;
+    --dweb-store-header-height: 50px;
+
+    // MOBILE SPECIFIC
+    --mweb-header-height: 50px;
+    --mweb-bottom-tabs-height: 60px;
+
+    // Mics
+    --border-radius: 4px;
+    --border-radius-large: 8px;
+    --modal-horz-spacing: 16px;
+
+    // BORDER
+    --border: 2px;
+}
+
+@include screen-min-tablet {
+    :root {
+        --spacing-site-horz: 24px;
+    }
+}
+
+@include screen-min-desktop {
+    :root {
+        --spacing-site-horz: 32px;
+    }
+}
+
+@include screen-min-desktop-lg {
+    :root {
+        --spacing-site-horz: 40px;
+    }
+}
+
+/* english */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Primary Font (English) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* arabic */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local('Cairo'),
+        local('Cairo-Regular'),
+        url('https://fonts.gstatic.com/s/cairo/v2/KHiPzIiPko_Fw3pWntR2CoDGDUGfDkXyfkzVDelzfFk.woff2')
+            format('woff2');
+    unicode-range:
+        U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+E0FF, U+EFFD,
+        U+F000, U+FB50-FDFF, U+FE80-FEFC;
+}
+
+/* latin */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local('Cairo'),
+        local('Cairo-Regular'),
+        url('https://fonts.gstatic.com/s/cairo/v2/9AWxzDXz2R7tHfJeCoIOqqCWcynf_cDxXwCLxiixG1c.woff2')
+            format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
+/* arabic */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 600;
+    src:
+        local('Cairo SemiBold'),
+        local('Cairo-SemiBold'),
+        url('https://fonts.gstatic.com/s/cairo/v2/MI6TrIXLGD9aHguHYHeGURkAz4rYn47Zy2rvigWQf6w.woff2')
+            format('woff2');
+    unicode-range:
+        U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+E0FF, U+EFFD,
+        U+F000, U+FB50-FDFF, U+FE80-FEFC;
+}
+
+/* latin */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 600;
+    src:
+        local('Cairo SemiBold'),
+        local('Cairo-SemiBold'),
+        url('https://fonts.gstatic.com/s/cairo/v2/nDAflKnJsVnfdGOoytL7mHYhjbSpvc47ee6xR_80Hnw.woff2')
+            format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
+/* arabic */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local('Cairo Bold'),
+        local('Cairo-Bold'),
+        url('https://fonts.gstatic.com/s/cairo/v2/RLgQnjqLWN5-LcxkRZr1cBkAz4rYn47Zy2rvigWQf6w.woff2')
+            format('woff2');
+    unicode-range:
+        U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+E0FF, U+EFFD,
+        U+F000, U+FB50-FDFF, U+FE80-FEFC;
+}
+
+/* latin */
+@font-face {
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local('Cairo Bold'),
+        local('Cairo-Bold'),
+        url('https://fonts.gstatic.com/s/cairo/v2/IGeshMgNVhb2XU2TGWkITnYhjbSpvc47ee6xR_80Hnw.woff2')
+            format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
+/* Duplicate font references removed - using Google Fonts imports above */
+
+/* currency symbols - using system fonts for currency symbols */
+
+// --------------------------------------------------------------- 2. GENERAL RESET
+
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+/*! rtl:begin:ignore */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*! rtl:end:ignore */
+
+// --------------------------------------------------------------- 3. CORE
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+}
+
+*:focus-visible {
+    outline: 1px solid var(--color-primary-blue);
+    outline-offset: -1px;
+}
+
+html {
+    font-size: 14px;
+}
+
+/* just so it's organized */
+/* stylelint-disable-next-line no-duplicate-selectors */
+html,
+body {
+    min-height: 100vh;
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-primary-black);
+    line-height: 1.4;
+    font-family:
+        'Inter', 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    html[dir='rtl'] & {
+        font-family: 'Cairo', 'Inter', Tahoma, sans-serif;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+strong,
+b {
+    font-weight: 700;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto; /* https://caniuse.com/mdn-html_elements_img_aspect_ratio_computed_from_attributes */
+    /* stylelint-disable-next-line property-no-unknown */
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+// --------------------------------------------------------------- 4. FORM ELEMENTS
+input,
+textarea,
+select,
+button {
+    font: inherit;
+    font-size: 16px; /* prevent ios zoom plus who doesnt like user friendly form inputs? */
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+}
+
+input::-ms-clear {
+    display: none; /* remove IE X - lets provide our own */
+}
+
+input::-webkit-search-cancel-button {
+    appearance: none; /* remove webkit X - lets provide our own */
+}
+
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+    border-width: 0;
+    cursor: pointer;
+}
+
+input[type='date'],
+input[type='datetime-local'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='tel'],
+input[type='text'],
+textarea {
+    appearance: none;
+    border: 1px solid var(--color-grey2);
+    background-color: var(--color-white);
+}
+
+input[type='search'] {
+    appearance: none;
+    border: none;
+    background-color: rgb(
+        219 219 219 / 50%
+    ); /* This specific alpha-enabled color is not present in the design language */
+}
+
+textarea {
+    resize: vertical;
+}
+
+select {
+    border: 1px solid var(--color-grey2);
+    background-color: var(--color-white);
+}
+
+button {
+    font-size: inherit;
+    appearance: none;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+button[disabled] {
+    cursor: default;
+}
+
+input:not([type='checkbox']),
+input:not([type='radio']),
+textarea,
+select {
+    display: block;
+    appearance: none;
+}
+
+textarea::placeholder,
+select::placeholder {
+    color: var(--color-grey1);
+}
+
+input:not([type='checkbox']).error,
+input:not([type='radio']).error,
+textarea.error,
+select.error {
+    border-color: var(--color-system-red);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    input:not([type='checkbox']):hover,
+    input:not([type='radio']):hover,
+    textarea:hover,
+    select:hover {
+        border-color: var(--color-grey1);
+    }
+}
+
+input:not([type='checkbox']):focus,
+input:not([type='radio']):focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-primary-black);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    input:not([type='checkbox']).error,
+    input:not([type='radio']).error,
+    textarea.error,
+    select.error {
+        border-color: var(--color-system-red);
+    }
+}
+
+input:not([type='checkbox']).valid,
+input:not([type='radio']).valid,
+textarea.valid,
+select.valid {
+    border-color: var(--color-system-green);
+}
+
+input:not([type='checkbox'])[disabled],
+input:not([type='radio'])[disabled],
+textarea[disabled],
+select[disabled] {
+    cursor: not-allowed;
+    border-color: var(--color-grey3);
+    background-color: var(--color-grey4);
+    color: var(--color-grey2);
+}
+
+input[type='submit'] {
+    display: none;
+}
+
+// --------------------------------------------------------------- 5. CUSTOM ACTIONS (LINKS/BUTTONS/WRAPPERS/HEADERS)
+
+// Used in case of DateInput */ attention cli - check where this is used, cant this go in the date component itself?
+html[dir='rtl'] .ltrForce {
+    direction: ltr;
+    unicode-bidi: bidi-override;
+    text-align: right;
+}
+
+.siteWidthContainer {
+    margin-inline: auto;
+    max-width: min(100vw, 1440px);
+    width: 100%;
+
+    &.isStorePage {
+        background-color: var(--color-white);
+    }
+}
+
+.hideForDesktop {
+    @include screen-min-desktop {
+        display: none;
+    }
+}
+
+.showForDesktop {
+    display: none;
+
+    @include screen-min-desktop {
+        display: block;
+    }
+}
+
+#default-header-desktop {
+    display: block;
+}
+
+#store-header-desktop {
+    display: none;
+}
+
+body:has(#catalog-page-container[data-store-code]) {
+    #default-header-desktop {
+        display: none;
+    }
+
+    #store-header-desktop {
+        display: block;
+    }
+}
+
+// --------------------------------------------------------------- 6. GOOGLE MAPS
+
+div.gm-style-iw {
+    width: 150px;
+}
+
+button.gm-ui-hover-effect {
+    top: 2px !important;
+    right: 2px !important;
+}
+
+html[dir='rtl'] button.gm-ui-hover-effect {
+    top: 0 !important;
+    right: 120px !important;
+}
+
+.gm-style .gm-style-iw-c {
+    padding: 0;
+    border-radius: 0;
+}
+
+.gm-style-iw button[title='Close'] {
+    display: none !important;
+}
+
+.toast-container {
+    text-align: center;
+}
+
+.grecaptcha-badge {
+    visibility: hidden;
+}
