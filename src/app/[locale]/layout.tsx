@@ -33,8 +33,8 @@ export default async function RootLayout({
   if(!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html dir={locale === 'ar' ? 'rtl' : 'ltr'} lang="en">
-      <body
+    <html dir={locale === "ar" ? "rtl" : "ltr"} lang={locale}>
+    <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
