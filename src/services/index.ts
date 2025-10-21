@@ -14,6 +14,13 @@ interface ApiErrorResponse {
     statusCode?: number;
 }
 
+interface CustomError extends Error {
+    statusCode?: number;
+    status?: number;
+    info?: string;
+    originalError?: ApiErrorResponse;
+}
+
 export const commonHeaders = {
     'Cache-Control': 'no-cache, max-age=0, must-revalidate, no-store',
     'content-type': 'application/json',
@@ -22,19 +29,25 @@ export const commonHeaders = {
 };
 
 let api: AxiosInstance = Axios.create({
-    baseURL: 'uninitialized!',
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '/',
+    timeout: 10000,
+    withCredentials: true,
+    headers: commonHeaders,
 });
+
+let isInitialized = false;
 
 export const initializeAxios = ({
     xContent,
     apiLocale,
     extraHeaders,
 }: TInitProps): void => {
+    if (isInitialized) return;
 
     api = Axios.create({
         baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '/',
         timeout: 10000,
-        withCredentials: true,
+        withCredentials: false,
         headers: {
             ...commonHeaders,
             'x-content': xContent,
@@ -45,12 +58,10 @@ export const initializeAxios = ({
 
     api.interceptors.request.use(
         async (requestConfig) => {
-          // 🔑 always make sure locale is present
           if (apiLocale) {
             requestConfig.headers['x-locale'] = apiLocale;
           }
 
-          // you can also attach fingerprint if needed
           return requestConfig as InternalAxiosRequestConfig;
         },
         (error) => Promise.reject(error)
@@ -62,54 +73,37 @@ export const initializeAxios = ({
             return responseConfig;
         },
         (error: AxiosError<ApiErrorResponse>) => {
-            // Handle API errors with your format: { message, error, statusCode }
             if (error.response?.data) {
                 const { message, error: errorType, statusCode } = error.response.data;
 
                 // If error data is a string (non-API error)
                 if (typeof error.response.data === 'string') {
-                    return Promise.reject({
-                        message: 'Something went wrong.',
-                        info: error.response.data,
-                        status: error.response.status,
-                    });
+                    const customError = new Error('Something went wrong.') as CustomError;
+                    customError.status = error.response.status;
+                    customError.info = error.response.data;
+                    return Promise.reject(customError);
                 }
 
-                // Extract user-friendly message
-                let userMessage = message || errorType;
-
-                // Fallback to status code defaults
-                if (!userMessage) {
-                    const status = error.response.status;
-                    if (status === 401) userMessage = 'Unauthorized access';
-                    else if (status === 403) userMessage = 'Forbidden';
-                    else if (status === 404) userMessage = 'Resource not found';
-                    else if (status === 500) userMessage = 'Internal server error';
-                    else userMessage = 'Server error occurred';
-                }
-
-                return Promise.reject({
-                    message: userMessage,
-                    statusCode: statusCode || error.response.status,
-                    originalError: error.response.data,
-                });
+                // Extract user-friendly message and create proper error
+                const userMessage = message || errorType || 'An error occurred';
+                const customError = new Error(userMessage) as CustomError;
+                customError.statusCode = statusCode || error.response.status;
+                customError.originalError = error.response.data;
+                return Promise.reject(customError);
             }
 
             // Handle network errors
             if (error.message === 'Network Error') {
-                return Promise.reject({
-                    message: "Looks like you're offline. Make sure you're connected to the internet and try again",
-                    status: 0,
-                });
+                const networkError = new Error("Looks like you're offline. Make sure you're connected to the internet and try again") as CustomError;
+                networkError.status = 0;
+                return Promise.reject(networkError);
             }
 
-            // Generic error fallback
-            return Promise.reject({
-                message: error.message || 'An unexpected error occurred',
-                status: 418,
-            });
+            return Promise.reject(error);
         },
     );
+
+    isInitialized = true;
 };
 // export const getApiCore = () => api;
 

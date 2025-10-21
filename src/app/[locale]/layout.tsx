@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import LayoutWapper from "@/components/LayoutWapper/LayoutWapper";
+import AxiosProvider from "@/components/AxiosProvider/AxiosProvider";
 import "@/styles/theme.scss";
 
 const geistSans = Geist({
@@ -38,9 +39,11 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
+        <AxiosProvider>
         <LayoutWapper>
         {children}
         </LayoutWapper>
+        </AxiosProvider>
         </NextIntlClientProvider>
       </body>
     </html>
