@@ -1,4 +1,4 @@
-import { getApiCore } from '../index';
+import { getApiCore } from './index';
 import { AUTH_ENDPOINTS } from '@/constants/auth';
 import type {
   LoginRequest,

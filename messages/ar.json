@@ -1,5 +1,29 @@
 {
-    "HomePage": {
-      "title": "مرحبا بالعالم!"
+  "HomePage": {
+    "title": "مرحبا بالعالم!"
+  },
+  "Auth": {
+    "Login": {
+      "title": "مرحباً بك في سفراتيك",
+      "subtitle": "تسجيل الدخول لإدارة مطعمك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example@email.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••••",
+      "forgotPassword": "هل نسيت كلمة المرور؟",
+      "rememberMe": "تذكرني",
+      "loginButton": "تسجيل الدخول",
+      "loggingIn": "جاري تسجيل الدخول..."
     }
+  },
+  "validation": {
+    "invalidEmail": "عنوان البريد الإلكتروني غير صالح",
+    "passwordMinLength": "يجب أن تكون كلمة المرور {min} أحرف على الأقل",
+    "passwordMin8": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "passwordsNoMatch": "كلمات المرور غير متطابقة",
+    "emailsNoMatch": "عناوين البريد الإلكتروني غير متطابقة",
+    "currentPasswordRequired": "كلمة المرور الحالية مطلوبة",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "invalidInput": "إدخال غير صالح"
   }
+}

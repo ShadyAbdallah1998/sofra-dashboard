@@ -1,41 +1,42 @@
 import { z } from 'zod';
 
+// Translation keys for validation errors
 export const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email('validation.invalidEmail'),
+  password: z.string().min(6, 'validation.passwordMin8'),
 });
 
 export const verifyEmailSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('validation.invalidEmail'),
 });
 
 export const resetPasswordSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('validation.invalidEmail'),
 });
 
 export const resetPasswordConfirmSchema = z.object({
-  newPassword: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string().min(8, 'Password must be at least 8 characters'),
+  newPassword: z.string().min(8, 'validation.passwordMin8'),
+  confirmPassword: z.string().min(8, 'validation.passwordMin8'),
 }).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: "validation.passwordsNoMatch",
   path: ['confirmPassword'],
 });
 
 export const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
-  newPassword: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string().min(8, 'Password must be at least 8 characters'),
+  currentPassword: z.string().min(1, 'validation.currentPasswordRequired'),
+  newPassword: z.string().min(8, 'validation.passwordMin8'),
+  confirmPassword: z.string().min(8, 'validation.passwordMin8'),
 }).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: "validation.passwordsNoMatch",
   path: ['confirmPassword'],
 });
 
 export const changeEmailSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  confirmEmail: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email('validation.invalidEmail'),
+  confirmEmail: z.string().email('validation.invalidEmail'),
+  password: z.string().min(1, 'validation.passwordRequired'),
 }).refine((data) => data.email === data.confirmEmail, {
-  message: "Emails don't match",
+  message: "validation.emailsNoMatch",
   path: ['confirmEmail'],
 });
 

@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Cairo } from "next/font/google";
 import "./globals.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import LayoutWapper from "@/components/LayoutWapper/LayoutWapper";
 import AxiosProvider from "@/components/AxiosProvider/AxiosProvider";
-import "@/styles/theme.scss";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,17 +36,24 @@ export default async function RootLayout({
   if(!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html dir={locale === "ar" ? "rtl" : "ltr"} lang={locale}>
-    <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <html dir={locale === "ar" ? "rtl" : "ltr"} lang={locale} suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${cairo.variable} antialiased`}
       >
-        <NextIntlClientProvider>
-        <AxiosProvider>
-        <LayoutWapper>
-        {children}
-        </LayoutWapper>
-        </AxiosProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider>
+            <AxiosProvider>
+              <LayoutWapper>
+                {children}
+              </LayoutWapper>
+            </AxiosProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { resetPasswordConfirmSchema, type ResetPasswordConfirmFormData } from '@/lib/validations/auth.schema';
-import { authService } from '@/services/auth/authService';
+import { authService } from '@/services/authService';
 
 export default function ResetPasswordConfirmPage() {
   const router = useRouter();

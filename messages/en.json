@@ -1,5 +1,29 @@
 {
-    "HomePage": {
-      "title": "Hello world!"
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "Auth": {
+    "Login": {
+      "title": "Welcome to Sofratech",
+      "subtitle": "Login to manage your restaurant",
+      "email": "Email",
+      "emailPlaceholder": "yourname@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••••",
+      "forgotPassword": "Forgot password?",
+      "rememberMe": "Remember me",
+      "loginButton": "Login to Dashboard",
+      "loggingIn": "Logging in..."
     }
+  },
+  "validation": {
+    "invalidEmail": "Invalid email address",
+    "passwordMinLength": "Password must be at least {min} characters",
+    "passwordMin8": "Password must be at least 8 characters",
+    "passwordsNoMatch": "Passwords do not match",
+    "emailsNoMatch": "Emails do not match",
+    "currentPasswordRequired": "Current password is required",
+    "passwordRequired": "Password is required",
+    "invalidInput": "Invalid input"
   }
+}
