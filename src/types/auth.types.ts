@@ -1,17 +1,4 @@
-export type UserRole = 'admin' | 'moderator' | 'staff';
-
-export interface User {
-  id: string;
-  email: string;
-  emailVerified: boolean;
-  fullname: string;
-  joinedAt: string;
-  lastUpdatedAt: string;
-  firstname?: string;
-  lastname?: string;
-  picture?: string;
-  role?: UserRole;
-}
+import { User } from './users.types';
 
 export interface LoginRequest {
   email: string;
