@@ -65,9 +65,21 @@ export default function DashboardPage() {
             <div className="flex gap-3">
               <Button
                 variant="outline"
+                onClick={() => router.push('/categories')}
+              >
+                Categories
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push('/products')}
+              >
+                Products
+              </Button>
+              <Button
+                variant="outline"
                 onClick={() => router.push('/profile')}
               >
-                Edit Profile
+                Profile
               </Button>
               <Button
                 onClick={handleLogout}
