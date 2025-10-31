@@ -2,6 +2,28 @@
   "HomePage": {
     "title": "مرحبا بالعالم!"
   },
+  "Dashboard": {
+    "title": "لوحة التحكم",
+    "welcomeBack": "مرحباً بعودتك، {name}",
+    "quickActions": "إجراءات سريعة",
+    "statistics": "الإحصائيات",
+    "lastUpdated": "آخر تحديث: {time}",
+    "categoriesAvailable": "{count} تصنيف متاح",
+    "productsInMenu": "{count} منتج في القائمة",
+    "totalUsers": "إجمالي المستخدمين",
+    "activeUsers": "المستخدمين النشطين",
+    "revenue": "الإيرادات",
+    "orders": "الطلبات"
+  },
+  "Sidebar": {
+    "title": "لوحة تحكم سفرة",
+    "navigation": "التنقل",
+    "dashboard": "لوحة التحكم",
+    "categories": "التصنيفات",
+    "products": "المنتجات",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
   "Auth": {
     "Login": {
       "title": "مرحباً بك في سفراتيك",

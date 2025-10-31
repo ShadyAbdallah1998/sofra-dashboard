@@ -1,0 +1,2347 @@
+openapi: 3.0.0
+paths:
+  /auth/google:
+    get:
+      description: Initiate google login
+      operationId: AuthController_googleLogin
+      parameters: []
+      responses:
+        "307":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/google
+      tags:
+        - Authentication
+  /auth/register:
+    post:
+      description: Register a new user
+      operationId: AuthController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/register
+      tags:
+        - Authentication
+  /auth/login:
+    post:
+      description: Login a user
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginDto"
+      responses:
+        "201":
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/login
+      tags:
+        - Authentication
+  /auth/logout:
+    delete:
+      description: Logout a user
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        "204":
+          description: ""
+      summary: /auth/logout
+      tags:
+        - Authentication
+  /auth/change-email:
+    post:
+      description: Change email
+      operationId: AuthController_changeEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeEmailDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/change-email
+      tags:
+        - Authentication
+  /auth/change-password:
+    post:
+      description: Change password
+      operationId: AuthController_changePassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePasswordDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/change-password
+      tags:
+        - Authentication
+  /auth/send-verify-email:
+    post:
+      description: Send verify email
+      operationId: AuthController_sendVerifyEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendVerifyEmailDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/send-verify-email
+      tags:
+        - Authentication
+  /auth/verify-email/{token}:
+    post:
+      description: Verify email
+      operationId: AuthController_verifyEmail
+      parameters:
+        - name: token
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/verify-email/:token
+      tags:
+        - Authentication
+  /auth/send-reset-password-email:
+    post:
+      description: Send reset password email
+      operationId: AuthController_sendResetPasswordEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendUpdatePasswordDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/send-reset-password-email
+      tags:
+        - Authentication
+  /auth/reset-password/{token}:
+    post:
+      description: Reset password
+      operationId: AuthController_resetPassword
+      parameters:
+        - name: token
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPasswordDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /auth/reset-password/:token
+      tags:
+        - Authentication
+  /users/{id}:
+    get:
+      description: Retrieve a user by Id.
+      operationId: UsersController_getUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /users/:id
+      tags:
+        - Users
+    patch:
+      description: Update a user by Id.
+      operationId: UsersController_updateUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /users/:id
+      tags:
+        - Users
+    delete:
+      description: Delete a user by Id.
+      operationId: UsersController_deleteUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      security:
+        - bearer: []
+      summary: /users/:id
+      tags:
+        - Users
+  /roles:
+    get:
+      description: Retrieve all assignable roles.
+      operationId: RolesController_getAssignableRoles
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssignableRolesDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /roles
+      tags:
+        - Roles
+  /roles-management/users:
+    post:
+      description: Add user role.
+      operationId: RolesManagementController_addUserRole
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUserRoleDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /roles-management/users
+      tags:
+        - Roles Management
+  /roles-management/users/{id}:
+    patch:
+      description: Update user role.
+      operationId: RolesManagementController_updateUserRole
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRoleDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /roles-management/users/:id
+      tags:
+        - Roles Management
+    delete:
+      description: Remove user role.
+      operationId: RolesManagementController_removeUserRole
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /roles-management/users/:id
+      tags:
+        - Roles Management
+  /categories:
+    get:
+      description: Retrieve a list of categories based on filters provided as query
+        parameters.
+      operationId: CategoriesController_getCategories
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: Page number
+          schema:
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: "The number of categories per page (default: 10)"
+          schema:
+            example: 10
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedCategoriesDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /categories
+      tags:
+        - Categories
+    post:
+      description: Create a new category.
+      operationId: CategoriesController_createCategory
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategoryDto"
+      responses:
+        "201":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /categories
+      tags:
+        - Categories
+  /categories/{id}:
+    get:
+      description: Retrieve a category by Id.
+      operationId: CategoriesController_getCategory
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Category Id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /categories/:id
+      tags:
+        - Categories
+    patch:
+      description: Update a category.
+      operationId: CategoriesController_updateCategory
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCategoryDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /categories/:id
+      tags:
+        - Categories
+    delete:
+      description: Delete a category by Id.
+      operationId: CategoriesController_deleteCategory
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Category Id
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /categories/:id
+      tags:
+        - Categories
+  /products:
+    get:
+      description: Retrieve a list of products based on filters provided as query
+        parameters.
+      operationId: ProductsController_getProducts
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: Page number
+          schema:
+            example: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          description: "The number of products per page (default: 10)"
+          schema:
+            example: 10
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedProductsDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /products
+      tags:
+        - Products
+    post:
+      description: Create a new product.
+      operationId: ProductsController_createProduct
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductDto"
+      responses:
+        "201":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /products
+      tags:
+        - Products
+  /products/{id}:
+    get:
+      description: Retrieve a product by Id.
+      operationId: ProductsController_getProduct
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Product Id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDto"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /products/:id
+      tags:
+        - Products
+    patch:
+      description: Update a product.
+      operationId: ProductsController_updateProduct
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProductDto"
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /products/:id
+      tags:
+        - Products
+    delete:
+      description: Delete a product by Id.
+      operationId: ProductsController_deleteProduct
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Product Id
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        default:
+          description: Any other 4XX or 5XX error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+      summary: /products/:id
+      tags:
+        - Products
+info:
+  title: Serve compass
+  description: Resturant management service
+  version: "1.0"
+  contact: {}
+tags: []
+servers:
+  - url: /
+  - url: /api
+components:
+  schemas:
+    ErrorDto:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          description: HTTP Error code extension.
+        error:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a
+            client user.
+        message:
+          type: array
+          description: More details and corrective actions related to the error which can
+            be shown to a client user.
+          items:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+      description: Used when an API throws an Error, typically with a HTTP error
+        response-code (4xx, 5xx)
+      required:
+        - statusCode
+        - error
+        - message
+    RegisterDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user
+          example: test@example.com
+        password:
+          type: string
+          description: The password of the user
+          example: Password@123
+        fullname:
+          type: string
+          description: The full name of the user
+          example: User Name
+        confirmPassword:
+          type: string
+          description: The confirm password of the user
+          example: Password@123
+        firstname:
+          type: string
+          description: The first name of the user
+          example: User
+        lastname:
+          type: string
+          description: The last name of the user
+          example: Name
+      required:
+        - email
+        - password
+        - fullname
+        - confirmPassword
+    LoginDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user
+          example: test@example.com
+        password:
+          type: string
+          description: The password of the user
+          example: Password@123
+      required:
+        - email
+        - password
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the user
+          example: 98741050-596d-4f7c-b419-44675285c4f2
+        email:
+          type: object
+          description: The email of the user
+          example: john.doe@example.com
+        emailVerified:
+          type: boolean
+          description: The email verified of the user
+          example: true
+        fullname:
+          type: string
+          description: The full name of the user
+          example: John Doe
+        role:
+          type: string
+          description: The role of the user
+          example: moderator
+          enum:
+            - admin
+            - moderator
+            - staff
+        firstname:
+          type: string
+          description: The first name of the user
+          example: John
+        lastname:
+          type: string
+          description: The last name of the user
+          example: Doe
+        picture:
+          type: string
+          description: The picture of the user
+          example: https://example.com/picture.jpg
+        joinedAt:
+          format: date-time
+          type: string
+          description: The joined at of the user
+          example: 2021-01-01
+        lastUpdatedAt:
+          format: date-time
+          type: string
+          description: The last updated at of the user
+          example: 2021-01-01
+      required:
+        - id
+        - email
+        - emailVerified
+        - fullname
+        - joinedAt
+        - lastUpdatedAt
+    ChangeEmailDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The new email of the user
+          example: test@example.com
+        confirmEmail:
+          type: string
+          description: The confirm new email of the user
+          example: test@example.com
+        password:
+          type: string
+          description: The password of the user
+          example: Password@123
+      required:
+        - email
+        - confirmEmail
+        - password
+    ChangePasswordDto:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+          description: The current password of the user
+          example: Password@123
+        newPassword:
+          type: string
+          description: The new password of the user
+          example: Password@123
+        confirmPassword:
+          type: string
+          description: The confirm new password of the user
+          example: Password@123
+      required:
+        - currentPassword
+        - newPassword
+        - confirmPassword
+    SendVerifyEmailDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user
+          example: test@example.com
+      required:
+        - email
+    SendUpdatePasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user
+          example: test@example.com
+      required:
+        - email
+    ResetPasswordDto:
+      type: object
+      properties:
+        newPassword:
+          type: string
+          description: The new password of the user
+          example: Password@123
+      required:
+        - newPassword
+    UpdateUserDto:
+      type: object
+      properties:
+        fullname:
+          type: string
+          description: The full name of the user
+          example: John Doe
+        firstname:
+          type: string
+          description: The first name of the user
+          example: John
+        lastname:
+          type: string
+          description: The last name of the user
+          example: Doe
+        picture:
+          type: string
+          description: The picture of the user
+          example: https://example.com/picture.jpg
+    AssignableRolesDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the role
+          example: 123e4567-e89b-12d3-a456-426614174000
+        description:
+          type: string
+          description: The description of the role
+          example: This is a description of the role
+        type:
+          type: object
+          description: The type of the role
+          example: moderator
+      required:
+        - id
+        - description
+        - type
+    AddUserRoleDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user to add the role to
+          example: john.doe@example.com
+        fullname:
+          type: string
+          description: The fullname of the user to add the role to
+          example: John Doe
+        roleId:
+          type: string
+          description: The ID of the role to add to the user
+          example: 123e4567-e89b-12d3-a456-426614174000
+      required:
+        - email
+        - fullname
+        - roleId
+    UpdateUserRoleDto:
+      type: object
+      properties:
+        roleId:
+          type: string
+          description: The ID of the role to update the user to
+          example: 123e4567-e89b-12d3-a456-426614174000
+      required:
+        - roleId
+    PaginationMetadataDto:
+      type: object
+      properties:
+        page:
+          type: number
+          description: Current page number
+          example: 1
+        perPage:
+          type: number
+          description: Number of items per page
+          example: 10
+        total:
+          type: number
+          description: Total number of items
+          example: 100
+        lastPage:
+          type: number
+          description: Last page number
+          example: 10
+      required:
+        - page
+        - perPage
+        - total
+        - lastPage
+    CategoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the category
+          example: 98741050-596d-4f7c-b419-44675285c4f2
+        name:
+          type: string
+          description: The name of the category
+          example: Burgers
+        order:
+          type: number
+          description: The visible order of the category
+          example: 1
+        isActive:
+          type: boolean
+          description: The visibility of the category
+          example: true
+        description:
+          type: string
+          description: The description of the category
+          example: Burgers with fries
+        image:
+          type: string
+          description: The image of the category
+        createdAt:
+          format: date-time
+          type: string
+          description: The date the category was created
+          example: 2021-01-01
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date the category was updated
+          example: 2021-01-01
+        createdBy:
+          type: string
+          description: The user who created the category
+          example: moderator@restaurant.com
+        updatedBy:
+          type: string
+          description: The user who updated the category
+          example: admin@restaurant.com
+      required:
+        - id
+        - name
+        - order
+        - isActive
+        - description
+        - image
+        - createdAt
+        - updatedAt
+        - createdBy
+        - updatedBy
+    PaginatedCategoriesDto:
+      type: object
+      properties:
+        metadata:
+          description: Pagination metadata
+          allOf:
+            - $ref: "#/components/schemas/PaginationMetadataDto"
+        data:
+          description: The paginated categories
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryDto"
+      required:
+        - metadata
+        - data
+    CreateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the category
+          example: Burgers
+        order:
+          type: number
+          description: The order of the category
+          example: 1
+        isActive:
+          type: boolean
+          description: Whether the category is active
+          example: true
+        description:
+          type: string
+          description: The description of the category
+          example: Burgers with fries
+        image:
+          type: string
+          description: The image of the category
+          example: https://example.com/image.jpg
+        createdBy:
+          type: string
+          description: The user who created the category
+          example: moderator@restaurant.com
+      required:
+        - name
+        - isActive
+        - createdBy
+    UpdateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the category
+          example: Burgers
+        order:
+          type: number
+          description: The order of the category
+          example: 1
+        isActive:
+          type: boolean
+          description: Whether the category is active
+          example: true
+        description:
+          type: string
+          description: The description of the category
+          example: Burgers with fries
+        image:
+          type: string
+          description: The image of the category
+          example: https://example.com/image.jpg
+        updatedBy:
+          type: string
+          description: The user who updated the category
+          example: moderator@restaurant.com
+      required:
+        - name
+        - isActive
+        - updatedBy
+    ProductDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the product
+          example: 98741050-596d-4f7c-b419-44675285c4f2
+        name:
+          type: string
+          description: The name of the product
+          example: Burger
+        order:
+          type: number
+          description: The visible order of the product
+          example: 1
+        isActive:
+          type: boolean
+          description: The visibility of the product
+          example: true
+        price:
+          type: number
+          description: The price of the product
+          example: 10.99
+        category:
+          description: The category data of the product
+          allOf:
+            - $ref: "#/components/schemas/CategoryDto"
+        categoryId:
+          type: string
+          description: The category id of the product
+          example: 123e4567-e89b-12d3-a456-426614174000
+        calories:
+          type: number
+          description: The calories of the product
+          example: 100
+        description:
+          type: string
+          description: The description of the product
+          example: Burgers with fries
+        image:
+          type: string
+          description: The image of the product
+        createdAt:
+          format: date-time
+          type: string
+          description: The date the product was created
+          example: 2021-01-01
+        updatedAt:
+          format: date-time
+          type: string
+          description: The date the product was updated
+          example: 2021-01-01
+        createdBy:
+          type: string
+          description: The user who created the product
+          example: moderator@restaurant.com
+        updatedBy:
+          type: string
+          description: The user who updated the product
+          example: admin@restaurant.com
+      required:
+        - id
+        - name
+        - order
+        - isActive
+        - price
+        - categoryId
+        - calories
+        - description
+        - image
+        - createdAt
+        - updatedAt
+        - createdBy
+        - updatedBy
+    PaginatedProductsDto:
+      type: object
+      properties:
+        metadata:
+          description: Pagination metadata
+          allOf:
+            - $ref: "#/components/schemas/PaginationMetadataDto"
+        data:
+          description: The paginated products
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDto"
+      required:
+        - metadata
+        - data
+    CreateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the product
+          example: Burger
+        order:
+          type: number
+          description: The order of the product
+          example: 1
+        isActive:
+          type: boolean
+          description: Whether the product is active
+          example: true
+        price:
+          type: number
+          description: The price of the product
+          example: 100
+        categoryId:
+          type: string
+          description: The category id of the product
+          example: 123e4567-e89b-12d3-a456-426614174000
+        calories:
+          type: number
+          description: The calories of the product
+          example: 100
+        description:
+          type: string
+          description: The description of the product
+          example: Burger with fries
+        image:
+          type: string
+          description: The image of the product
+          example: https://example.com/image.jpg
+        createdBy:
+          type: string
+          description: The user who created the product
+          example: moderator@restaurant.com
+      required:
+        - name
+        - isActive
+        - price
+        - categoryId
+        - calories
+        - createdBy
+    UpdateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the product
+          example: Burger
+        order:
+          type: number
+          description: The order of the product
+          example: 1
+        isActive:
+          type: boolean
+          description: Whether the product is active
+          example: true
+        description:
+          type: string
+          description: The description of the product
+          example: Burger with fries
+        image:
+          type: string
+          description: The image of the product
+          example: https://example.com/image.jpg
+        calories:
+          type: number
+          description: The calories of the product
+          example: 100
+        updatedBy:
+          type: string
+          description: The user who updated the product
+          example: moderator@restaurant.com
+      required:
+        - name
+        - isActive
+        - updatedBy

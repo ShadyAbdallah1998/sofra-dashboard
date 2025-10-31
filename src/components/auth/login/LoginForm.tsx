@@ -6,8 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { loginSchema, type LoginFormData } from '@/lib/validations/auth.schema';
-import { authService } from '@/services/authService';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -18,8 +17,13 @@ export default function LoginForm() {
   const t = useTranslations('Auth.Login');
   const tValidation = useTranslations('validation');
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
-  const [isLoading, setIsLoading] = useState(false);
+
+  // Use store actions and state
+  const login = useAuthStore((state) => state.login);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const error = useAuthStore((state) => state.error);
+  const clearError = useAuthStore((state) => state.clearError);
+
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,29 +37,24 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
+    clearError();
     try {
-      const response = await authService.login(data);
-
-      setUser(response);
-
-      console.log('Login successful:', response);
-
+      await login(data);
       router.push('/dashboard');
-    } catch (error) {
+    } catch (err) {
       setError('root', {
-        message: (error as { message?: string }).message || 'Login failed',
+        message: (err as { message?: string }).message || 'Login failed',
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      {errors.root && (
+      {(errors.root || error) && (
         <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
-          <p className="fz-14 text-center text-destructive">{errors.root.message}</p>
+          <p className="fz-14 text-center text-destructive">
+            {errors.root?.message || error?.message}
+          </p>
         </div>
       )}
 
