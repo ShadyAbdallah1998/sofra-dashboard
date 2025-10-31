@@ -5,9 +5,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
-  user: User;
-}
+export type LoginResponse = User;
 
 export interface ChangeEmailRequest {
   email: string;

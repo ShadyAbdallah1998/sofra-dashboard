@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import LayoutWapper from "@/components/LayoutWapper/LayoutWapper";
 import AxiosProvider from "@/components/AxiosProvider/AxiosProvider";
 import { ThemeProvider } from "@/components/theme-provider";
+import AuthWrapper from "@/components/AuthWrapper/AuthWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,7 +50,9 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <AxiosProvider>
               <LayoutWapper>
-                {children}
+                <AuthWrapper>
+                  {children}
+                </AuthWrapper>
               </LayoutWapper>
             </AxiosProvider>
           </NextIntlClientProvider>

@@ -47,7 +47,7 @@ export const initializeAxios = ({
     api = Axios.create({
         baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '/',
         timeout: 10000,
-        withCredentials: false,
+        withCredentials: true,
         headers: {
             ...commonHeaders,
             'x-content': xContent,

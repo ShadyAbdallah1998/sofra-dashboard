@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { loginSchema, type LoginFormData } from '@/lib/validations/auth.schema';
 import { authService } from '@/services/authService';
+import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,6 +18,7 @@ export default function LoginForm() {
   const t = useTranslations('Auth.Login');
   const tValidation = useTranslations('validation');
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +36,11 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       const response = await authService.login(data);
+
+      setUser(response);
+
       console.log('Login successful:', response);
+
       router.push('/dashboard');
     } catch (error) {
       setError('root', {
