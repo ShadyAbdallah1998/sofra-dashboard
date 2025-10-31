@@ -2,6 +2,15 @@
   "HomePage": {
     "title": "مرحبا بالعالم!"
   },
+  "Sidebar": {
+    "title": "لوحة تحكم سفرة",
+    "navigation": "التنقل",
+    "dashboard": "لوحة التحكم",
+    "categories": "التصنيفات",
+    "products": "المنتجات",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
   "Auth": {
     "Login": {
       "title": "مرحباً بك في سفراتيك",

@@ -2,6 +2,15 @@
   "HomePage": {
     "title": "Hello world!"
   },
+  "Sidebar": {
+    "title": "Sofra Dashboard",
+    "navigation": "Navigation",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "products": "Products",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
   "Auth": {
     "Login": {
       "title": "Welcome to Sofratech",

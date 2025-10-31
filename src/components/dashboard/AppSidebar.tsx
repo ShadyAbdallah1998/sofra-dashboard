@@ -2,13 +2,14 @@
 
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { useAuthStore } from '@/store';
+import { useLocale } from '@/hooks/useLocale';
+import { useTranslations } from 'next-intl';
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -23,34 +24,37 @@ import {
     Store,
 } from 'lucide-react';
 
-const menuItems = [
-    {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutDashboard,
-    },
-    {
-        title: 'Categories',
-        url: '/categories',
-        icon: FolderOpen,
-    },
-    {
-        title: 'Products',
-        url: '/products',
-        icon: Package,
-    },
-    {
-        title: 'Profile',
-        url: '/profile',
-        icon: User,
-    },
-];
-
 export function AppSidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
+    const { direction } = useLocale();
+    const t = useTranslations('Sidebar');
+    const sidebarSide = direction === 'rtl' ? 'right' : 'left';
+
+    const menuItems = [
+        {
+            title: t('dashboard'),
+            url: '/dashboard',
+            icon: LayoutDashboard,
+        },
+        {
+            title: t('categories'),
+            url: '/categories',
+            icon: FolderOpen,
+        },
+        {
+            title: t('products'),
+            url: '/products',
+            icon: Package,
+        },
+        {
+            title: t('profile'),
+            url: '/profile',
+            icon: User,
+        },
+    ];
 
     const handleLogout = async () => {
         try {
@@ -66,21 +70,21 @@ export function AppSidebar() {
     };
 
     return (
-        <Sidebar collapsible="icon">
-            <SidebarHeader className="border-b border-sidebar-border px-2 py-4 group-data-[collapsible=icon]:px-2">
-                <div className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
+        <Sidebar collapsible="icon" side={sidebarSide}>
+            <SidebarHeader className="border-b border-sidebar-border h-16 px-2 flex items-center justify-center group-data-[collapsible=icon]:px-2">
+                <div className="flex items-center gap-2 w-full group-data-[collapsible=icon]:justify-center">
                     <Store className="h-6 w-6 text-sidebar-primary shrink-0" />
                     <h1 className="fz-20 font-bold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-                        Sofra Dashboard
+                        {t('title')}
                     </h1>
                 </div>
             </SidebarHeader>
 
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel className="fz-12 px-4">
+                    {/* <SidebarGroupLabel className="fz-12 px-4">
                         Navigation
-                    </SidebarGroupLabel>
+                    </SidebarGroupLabel> */}
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {menuItems.map((item) => {
@@ -116,7 +120,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton onClick={handleLogout} className="fz-14">
                             <LogOut className="h-4 w-4" />
-                            <span>Logout</span>
+                            <span>{t('logout')}</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

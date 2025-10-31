@@ -63,12 +63,17 @@ export function DataTable<T = unknown>({
     const sortedData = [...data].sort((a, b) => {
         if (!sortColumn) return 0;
 
-        const aValue = a[sortColumn];
-        const bValue = b[sortColumn];
+        const aValue = (a as Record<string, unknown>)[sortColumn];
+        const bValue = (b as Record<string, unknown>)[sortColumn];
 
         if (aValue === bValue) return 0;
 
-        const comparison = aValue > bValue ? 1 : -1;
+        // Handle null/undefined values
+        if (aValue == null) return 1;
+        if (bValue == null) return -1;
+
+        // Type-safe comparison
+        const comparison = String(aValue).localeCompare(String(bValue));
         return sortDirection === 'asc' ? comparison : -comparison;
     });
 
@@ -141,7 +146,7 @@ export function DataTable<T = unknown>({
                                 >
                                     {column.render
                                         ? column.render(item)
-                                        : item[column.key]?.toString() || '-'}
+                                        : (item as Record<string, unknown>)[column.key]?.toString() || '-'}
                                 </TableCell>
                             ))}
                             {actions && actions.length > 0 && (

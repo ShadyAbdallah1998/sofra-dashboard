@@ -124,7 +124,7 @@ export default function ProductsPage() {
             header: 'Price',
             sortable: true,
             render: (product: Product) => (
-                <span className="fz-14 font-semibold text-foreground">${product.price.toFixed(2)}</span>
+                <span className="fz-14 font-semibold text-foreground">${Number(product.price).toFixed(2)}</span>
             ),
         },
         {
