@@ -1,18 +1,18 @@
-import { create, StoreApi } from 'zustand';
-import { categoriesService } from '@/services/categoriesService';
-import { reportError } from '@/lib/utils';
+import { create, StoreApi } from "zustand";
+import { categoriesService } from "@/services/categoriesService";
+import { reportError } from "@/lib/utils";
 import type {
     Category,
     CreateCategoryRequest,
     UpdateCategoryRequest,
     PaginatedCategoriesResponse,
     CategoryFilters,
-} from '@/types/categories.types';
+} from "@/types/categories.types";
 
 type CategoriesState = {
     categories: Category[];
     currentCategory: Category | null;
-    pagination: PaginatedCategoriesResponse['metadata'] | null;
+    pagination: PaginatedCategoriesResponse["metadata"] | null;
     isLoading: boolean;
     error: Error | undefined;
     filters: CategoryFilters;
@@ -40,15 +40,17 @@ const initialState: CategoriesState = {
 
 export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
     (
-        set: StoreApi<CategoriesState & CategoriesActions>['setState'],
-        get: StoreApi<CategoriesState & CategoriesActions>['getState']
+        set: StoreApi<CategoriesState & CategoriesActions>["setState"],
+        get: StoreApi<CategoriesState & CategoriesActions>["getState"]
     ) => ({
         ...initialState,
 
         getCategories: async (filters?: CategoryFilters) => {
             set({ isLoading: true, error: undefined });
             try {
-                const response = await categoriesService.getCategories(filters || get().filters);
+                const response = await categoriesService.getCategories(
+                    filters || get().filters
+                );
                 set({
                     categories: response.data,
                     pagination: response.metadata,
@@ -56,7 +58,7 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                 });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'CategoriesStore.getCategories' });
+                reportError(error, { componentStack: "CategoriesStore.getCategories" });
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -69,22 +71,28 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                 set({ currentCategory: category, isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'CategoriesStore.getCategory' });
+                reportError(error, { componentStack: "CategoriesStore.getCategory" });
                 set({ error, isLoading: false });
                 throw error;
             }
         },
 
         createCategory: async (data: CreateCategoryRequest) => {
+            console.log("🚀 Creating category with data:", data);
             set({ isLoading: true, error: undefined });
             try {
+                console.log("📡 Calling API...");
                 await categoriesService.createCategory(data);
+
                 // Refresh categories list
                 await get().getCategories();
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'CategoriesStore.createCategory' });
+                console.error("❌ Error creating category:", error);
+                reportError(error, {
+                    componentStack: "CategoriesStore.createCategory",
+                });
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -103,7 +111,9 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'CategoriesStore.updateCategory' });
+                reportError(error, {
+                    componentStack: "CategoriesStore.updateCategory",
+                });
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -122,7 +132,9 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'CategoriesStore.deleteCategory' });
+                reportError(error, {
+                    componentStack: "CategoriesStore.deleteCategory",
+                });
                 set({ error, isLoading: false });
                 throw error;
             }
