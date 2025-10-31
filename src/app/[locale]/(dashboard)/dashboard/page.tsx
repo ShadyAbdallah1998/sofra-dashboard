@@ -3,10 +3,15 @@
 import { useEffect } from 'react';
 import { useAuthStore, useDashboardStore, useCategoriesStore, useProductsStore } from '@/store';
 import { useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
+import { useLocale } from '@/hooks/useLocale';
 import { Package, FolderOpen, TrendingUp, Users, DollarSign, ShoppingCart, ArrowRight } from 'lucide-react';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const t = useTranslations('Dashboard');
+  const tSidebar = useTranslations('Sidebar');
+  const { isRTL } = useLocale();
 
   const user = useAuthStore((state) => state.user);
   const stats = useDashboardStore((state) => state.stats);
@@ -49,9 +54,9 @@ export default function DashboardPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="space-y-1">
-        <h1 className="fz-25 font-bold text-foreground">Dashboard</h1>
+        <h1 className="fz-25 font-bold text-foreground">{t('title')}</h1>
         <p className="fz-14 text-muted-foreground">
-          Welcome back, {user.fullname}
+          {t('welcomeBack', { name: user.fullname })}
         </p>
       </div>
 
@@ -67,13 +72,13 @@ export default function DashboardPage() {
                 <FolderOpen className="h-7 w-7 text-primary" />
               </div>
               <div className="space-y-1">
-                <h3 className="fz-18 font-semibold text-foreground">Categories</h3>
+                <h3 className="fz-18 font-semibold text-foreground">{tSidebar('categories')}</h3>
                 <p className="fz-12 text-muted-foreground">
-                  {categories?.length || 0} categories available
+                  {t('categoriesAvailable', { count: categories?.length || 0 })}
                 </p>
               </div>
             </div>
-            <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
+            <ArrowRight className={`h-5 w-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all ${isRTL ? 'rotate-180' : ''}`} />
           </div>
         </div>
 
@@ -87,13 +92,13 @@ export default function DashboardPage() {
                 <Package className="h-7 w-7 text-chart-2" />
               </div>
               <div className="space-y-1">
-                <h3 className="fz-18 font-semibold text-foreground">Products</h3>
+                <h3 className="fz-18 font-semibold text-foreground">{tSidebar('products')}</h3>
                 <p className="fz-12 text-muted-foreground">
-                  {products?.length || 0} products in menu
+                  {t('productsInMenu', { count: products?.length || 0 })}
                 </p>
               </div>
             </div>
-            <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
+            <ArrowRight className={`h-5 w-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all ${isRTL ? 'rotate-180' : ''}`} />
           </div>
         </div>
       </div>
@@ -102,10 +107,10 @@ export default function DashboardPage() {
       {stats && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="fz-20 font-semibold text-foreground">Statistics</h2>
+            <h2 className="fz-20 font-semibold text-foreground">{t('statistics')}</h2>
             {lastUpdated && (
               <p className="fz-12 text-muted-foreground">
-                Last updated: {new Date(lastUpdated).toLocaleTimeString()}
+                {t('lastUpdated', { time: new Date(lastUpdated).toLocaleTimeString() })}
               </p>
             )}
           </div>
@@ -118,7 +123,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="fz-12 text-muted-foreground font-medium">Total Users</p>
+                  <p className="fz-12 text-muted-foreground font-medium">{t('totalUsers')}</p>
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-chart-1/10">
                     <Users className="h-5 w-5 text-chart-1" />
                   </div>
@@ -130,7 +135,7 @@ export default function DashboardPage() {
 
               <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="fz-12 text-muted-foreground font-medium">Active Users</p>
+                  <p className="fz-12 text-muted-foreground font-medium">{t('activeUsers')}</p>
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-chart-2/10">
                     <TrendingUp className="h-5 w-5 text-chart-2" />
                   </div>
@@ -142,7 +147,7 @@ export default function DashboardPage() {
 
               <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="fz-12 text-muted-foreground font-medium">Revenue</p>
+                  <p className="fz-12 text-muted-foreground font-medium">{t('revenue')}</p>
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-chart-3/10">
                     <DollarSign className="h-5 w-5 text-chart-3" />
                   </div>
@@ -154,7 +159,7 @@ export default function DashboardPage() {
 
               <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="fz-12 text-muted-foreground font-medium">Orders</p>
+                  <p className="fz-12 text-muted-foreground font-medium">{t('orders')}</p>
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-chart-4/10">
                     <ShoppingCart className="h-5 w-5 text-chart-4" />
                   </div>
@@ -167,38 +172,6 @@ export default function DashboardPage() {
           )}
         </div>
       )}
-
-      {/* User Info */}
-      <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-8 space-y-6">
-        <div className="space-y-1">
-          <h2 className="fz-20 font-semibold text-foreground">Account Information</h2>
-          <p className="fz-12 text-muted-foreground">Your account details and status</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <p className="fz-12 text-muted-foreground font-medium">Email Address</p>
-            <p className="fz-14 font-semibold text-foreground">{user.email}</p>
-          </div>
-          <div className="space-y-2">
-            <p className="fz-12 text-muted-foreground font-medium">Email Status</p>
-            <p className="fz-14 font-semibold text-foreground">
-              {user.emailVerified ? '✅ Verified' : '❌ Not Verified'}
-            </p>
-          </div>
-          {user.role && (
-            <div className="space-y-2">
-              <p className="fz-12 text-muted-foreground font-medium">Role</p>
-              <p className="fz-14 font-semibold text-foreground capitalize">{user.role}</p>
-            </div>
-          )}
-          <div className="space-y-2">
-            <p className="fz-12 text-muted-foreground font-medium">Member Since</p>
-            <p className="fz-14 font-semibold text-foreground">
-              {new Date(user.joinedAt).toLocaleDateString()}
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

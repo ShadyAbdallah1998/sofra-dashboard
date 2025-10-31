@@ -2,6 +2,19 @@
   "HomePage": {
     "title": "Hello world!"
   },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back, {name}",
+    "quickActions": "Quick Actions",
+    "statistics": "Statistics",
+    "lastUpdated": "Last updated: {time}",
+    "categoriesAvailable": "{count} categories available",
+    "productsInMenu": "{count} products in menu",
+    "totalUsers": "Total Users",
+    "activeUsers": "Active Users",
+    "revenue": "Revenue",
+    "orders": "Orders"
+  },
   "Sidebar": {
     "title": "Sofra Dashboard",
     "navigation": "Navigation",
