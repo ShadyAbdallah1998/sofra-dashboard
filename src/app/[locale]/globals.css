@@ -138,6 +138,9 @@
   }
 }
 
+button {
+  cursor: pointer;
+}
 @layer components {
   /* ------------------------------------
     Fixed Font Sizes (non-responsive)

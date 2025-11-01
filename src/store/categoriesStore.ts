@@ -1,6 +1,6 @@
 import { create, StoreApi } from "zustand";
 import { categoriesService } from "@/services/categoriesService";
-import { reportError } from "@/lib/utils";
+import { handleError, handleSuccess } from "@/lib/utils";
 import type {
     Category,
     CreateCategoryRequest,
@@ -14,16 +14,16 @@ type CategoriesState = {
     currentCategory: Category | null;
     pagination: PaginatedCategoriesResponse["metadata"] | null;
     isLoading: boolean;
-    error: Error | undefined;
+    error: string | null;
     filters: CategoryFilters;
 };
 
 type CategoriesActions = {
-    getCategories: (filters?: CategoryFilters) => Promise<void>;
-    getCategory: (id: string) => Promise<void>;
-    createCategory: (data: CreateCategoryRequest) => Promise<void>;
-    updateCategory: (id: string, data: UpdateCategoryRequest) => Promise<void>;
-    deleteCategory: (id: string) => Promise<void>;
+    getCategories: (filters?: CategoryFilters) => Promise<{ success: boolean; error?: string }>;
+    getCategory: (id: string) => Promise<{ success: boolean; error?: string }>;
+    createCategory: (data: CreateCategoryRequest) => Promise<{ success: boolean; error?: string }>;
+    updateCategory: (id: string, data: UpdateCategoryRequest) => Promise<{ success: boolean; error?: string }>;
+    deleteCategory: (id: string) => Promise<{ success: boolean; error?: string }>;
     setFilters: (filters: CategoryFilters) => void;
     clearError: () => void;
     reset: () => void;
@@ -34,7 +34,7 @@ const initialState: CategoriesState = {
     currentCategory: null,
     pagination: null,
     isLoading: false,
-    error: undefined,
+    error: null,
     filters: { page: 1, limit: 10 },
 };
 
@@ -46,7 +46,7 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
         ...initialState,
 
         getCategories: async (filters?: CategoryFilters) => {
-            set({ isLoading: true, error: undefined });
+            set({ isLoading: true, error: null });
             try {
                 const response = await categoriesService.getCategories(
                     filters || get().filters
@@ -56,30 +56,36 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                     pagination: response.metadata,
                     isLoading: false,
                 });
-            } catch (err) {
-                const error = err as Error;
-                reportError(error, { componentStack: "CategoriesStore.getCategories" });
-                set({ error, isLoading: false });
-                throw error;
+                return { success: true };
+            } catch (error) {
+                const errorMessage = handleError(error, {
+                    showToast: false,
+                    returnError: true
+                });
+                set({ error: errorMessage, isLoading: false });
+                return { success: false, error: errorMessage };
             }
         },
 
         getCategory: async (id: string) => {
-            set({ isLoading: true, error: undefined });
+            set({ isLoading: true, error: null });
             try {
                 const category = await categoriesService.getCategory(id);
                 set({ currentCategory: category, isLoading: false });
-            } catch (err) {
-                const error = err as Error;
-                reportError(error, { componentStack: "CategoriesStore.getCategory" });
-                set({ error, isLoading: false });
-                throw error;
+                return { success: true };
+            } catch (error) {
+                const errorMessage = handleError(error, {
+                    showToast: false,
+                    returnError: true
+                });
+                set({ error: errorMessage, isLoading: false });
+                return { success: false, error: errorMessage };
             }
         },
 
         createCategory: async (data: CreateCategoryRequest) => {
             console.log("🚀 Creating category with data:", data);
-            set({ isLoading: true, error: undefined });
+            set({ isLoading: true, error: null });
             try {
                 console.log("📡 Calling API...");
                 await categoriesService.createCategory(data);
@@ -87,56 +93,79 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
                 // Refresh categories list
                 await get().getCategories();
                 set({ isLoading: false });
-            } catch (err) {
-                const error = err as Error;
+
+                // Show success toast only
+                handleSuccess('Category created successfully!');
+                return { success: true };
+            } catch (error) {
                 console.error("❌ Error creating category:", error);
-                reportError(error, {
-                    componentStack: "CategoriesStore.createCategory",
+
+                // Get error message and set it in store
+                const errorMessage = handleError(error, {
+                    showToast: false,  // Don't show toast
+                    returnError: true  // Return error for component
                 });
-                set({ error, isLoading: false });
-                throw error;
+
+                set({ error: errorMessage, isLoading: false });
+                return { success: false, error: errorMessage };
             }
         },
 
         updateCategory: async (id: string, data: UpdateCategoryRequest) => {
-            set({ isLoading: true, error: undefined });
+            set({ isLoading: true, error: null });
             try {
                 await categoriesService.updateCategory(id, data);
+
                 // Update current category if it's the same
                 if (get().currentCategory?.id === id) {
                     await get().getCategory(id);
                 }
+
                 // Refresh categories list
                 await get().getCategories();
                 set({ isLoading: false });
-            } catch (err) {
-                const error = err as Error;
-                reportError(error, {
-                    componentStack: "CategoriesStore.updateCategory",
+
+                // Show success toast only
+                handleSuccess('Category updated successfully!');
+                return { success: true };
+            } catch (error) {
+                // Get error message and set it in store
+                const errorMessage = handleError(error, {
+                    showToast: false,  // Don't show toast
+                    returnError: true  // Return error for component
                 });
-                set({ error, isLoading: false });
-                throw error;
+
+                set({ error: errorMessage, isLoading: false });
+                return { success: false, error: errorMessage };
             }
         },
 
         deleteCategory: async (id: string) => {
-            set({ isLoading: true, error: undefined });
+            set({ isLoading: true, error: null });
             try {
                 await categoriesService.deleteCategory(id);
+
                 // Clear current category if it's the deleted one
                 if (get().currentCategory?.id === id) {
                     set({ currentCategory: null });
                 }
+
                 // Refresh categories list
                 await get().getCategories();
                 set({ isLoading: false });
-            } catch (err) {
-                const error = err as Error;
-                reportError(error, {
-                    componentStack: "CategoriesStore.deleteCategory",
+
+                // Show success toast only
+                handleSuccess('Category deleted successfully!');
+                return { success: true };
+            } catch (error) {
+                // Get error message and set it in store
+                const errorMessage = handleError(error, {
+                    showToast: false,  // Don't show toast
+                    returnError: true  // Return error for component
                 });
-                set({ error, isLoading: false });
-                throw error;
+
+                set({ error: errorMessage, isLoading: false });
+                return { success: false, error: errorMessage };
             }
         },
 
@@ -144,7 +173,7 @@ export const useCategoriesStore = create<CategoriesState & CategoriesActions>(
             set({ filters: { ...get().filters, ...filters } });
         },
 
-        clearError: () => set({ error: undefined }),
+        clearError: () => set({ error: null }),
 
         reset: () => set(initialState),
     })

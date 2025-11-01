@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { authService } from '@/services/authService';
-import { reportError } from '@/lib/utils';
 import type { User } from '@/types/users.types';
 import type { LoginRequest, ChangePasswordRequest } from '@/types/auth.types';
 
@@ -42,7 +41,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           set({ user, isLoading: false });
         } catch (err) {
           const error = err as Error;
-          reportError(error, { componentStack: 'AuthStore.login' });
+          console.error('Login error:', error);
           set({ error, isLoading: false });
           throw error;
         }
@@ -54,7 +53,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           await authService.logout();
         } catch (err) {
           const error = err as Error;
-          reportError(error, { componentStack: 'AuthStore.logout' });
+          console.error('Logout error:', error);
           // Continue with logout even if API call fails
         } finally {
           // Always clear user data regardless of API response
@@ -78,7 +77,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           set({ isLoading: false });
         } catch (err) {
           const error = err as Error;
-          reportError(error, { componentStack: 'AuthStore.changePassword' });
+          console.error('Change password error:', error);
           set({ error, isLoading: false });
           throw error;
         }

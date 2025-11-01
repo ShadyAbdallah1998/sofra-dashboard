@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { resetPasswordSchema, type ResetPasswordFormData } from '@/lib/validations/auth.schema';
 import { authService } from '@/services/authService';
 import { useTranslations } from 'next-intl';
-import { reportError } from '@/lib/utils';
 
 export default function ForgotPasswordPage() {
   const tValidation = useTranslations('validation');
@@ -32,7 +31,7 @@ export default function ForgotPasswordPage() {
       setEmailSent(true);
     } catch (error) {
       const err = error as Error;
-      reportError(err, { componentStack: 'ForgotPasswordPage.onSubmit' });
+      console.error('Error sending reset email:', err);
       setError('root', {
         message: err.message || 'Failed to send reset email',
       });

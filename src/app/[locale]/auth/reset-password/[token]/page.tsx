@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { resetPasswordConfirmSchema, type ResetPasswordConfirmFormData } from '@/lib/validations/auth.schema';
 import { authService } from '@/services/authService';
-import { reportError } from '@/lib/utils';
 
 export default function ResetPasswordConfirmPage() {
   const router = useRouter();
@@ -30,7 +29,7 @@ export default function ResetPasswordConfirmPage() {
       router.push('/auth/login?reset=success');
     } catch (error) {
       const err = error as Error;
-      reportError(err, { componentStack: 'ResetPasswordConfirmPage.onSubmit' });
+      console.error('Error resetting password:', err);
       setError('root', {
         message: err.message || 'Failed to reset password',
       });

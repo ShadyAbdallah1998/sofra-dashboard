@@ -9,6 +9,7 @@ import LayoutWapper from "@/components/LayoutWapper/LayoutWapper";
 import AxiosProvider from "@/components/AxiosProvider/AxiosProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthWrapper from "@/components/AuthWrapper/AuthWrapper";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -67,6 +68,7 @@ export default async function RootLayout({
               </LayoutWapper>
             </AxiosProvider>
           </NextIntlClientProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

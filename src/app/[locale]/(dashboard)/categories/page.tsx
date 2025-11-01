@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/common/DataTable';
 import CategoryForm from '@/components/categories/CategoryForm';
 import type { Category, CreateCategoryRequest, UpdateCategoryRequest } from '@/types/categories.types';
-import { Edit, Trash2, Plus, X, FolderOpen } from 'lucide-react';
+import { Edit, Trash2, Plus, X, FolderOpen, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 
 export default function CategoriesPage() {
@@ -18,12 +18,14 @@ export default function CategoriesPage() {
     const user = useAuthStore((state) => state.user);
     const categories = useCategoriesStore((state) => state.categories);
     const isLoading = useCategoriesStore((state) => state.isLoading);
+    const error = useCategoriesStore((state) => state.error);
     const pagination = useCategoriesStore((state) => state.pagination);
     const getCategories = useCategoriesStore((state) => state.getCategories);
     const createCategory = useCategoriesStore((state) => state.createCategory);
     const updateCategory = useCategoriesStore((state) => state.updateCategory);
     const deleteCategory = useCategoriesStore((state) => state.deleteCategory);
     const setFilters = useCategoriesStore((state) => state.setFilters);
+    const clearError = useCategoriesStore((state) => state.clearError);
 
     useEffect(() => {
         if (!user) {
@@ -40,35 +42,35 @@ export default function CategoriesPage() {
 
     const handleCreate = () => {
         setEditingCategory(undefined);
+        clearError();
         setShowForm(true);
     };
 
     const handleEdit = (category: Category) => {
         setEditingCategory(category);
+        clearError();
         setShowForm(true);
     };
 
     const handleSubmit = async (data: CreateCategoryRequest | UpdateCategoryRequest) => {
-        try {
-            if (editingCategory) {
-                await updateCategory(editingCategory.id, data as UpdateCategoryRequest);
-            } else {
-                await createCategory(data as CreateCategoryRequest);
-            }
+        clearError();
+
+        const result = editingCategory
+            ? await updateCategory(editingCategory.id, data as UpdateCategoryRequest)
+            : await createCategory(data as CreateCategoryRequest);
+
+        if (result.success) {
             setShowForm(false);
             setEditingCategory(undefined);
-        } catch (error) {
-            console.error('Failed to save category:', error);
         }
+        // Error is automatically set in store
     };
 
     const handleDelete = async (category: Category) => {
         if (confirm(`Delete "${category.name}"?`)) {
-            try {
-                await deleteCategory(category.id);
-            } catch (error) {
-                console.error('Failed to delete category:', error);
-            }
+            clearError();
+            await deleteCategory(category.id);
+            // Error is automatically set in store if deletion fails
         }
     };
 
@@ -181,6 +183,25 @@ export default function CategoriesPage() {
                 )}
             </div>
 
+            {/* Error Alert - Shows for both form and delete errors */}
+            {!showForm && error && (
+                <div className="bg-destructive/10 border border-destructive rounded-xl p-4 flex items-start gap-3 shadow-sm animate-in slide-in-from-top-2 duration-300">
+                    <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                        <h3 className="fz-14 font-semibold text-destructive mb-1">
+                            Error
+                        </h3>
+                        <p className="fz-13 text-destructive/90">{error}</p>
+                    </div>
+                    <button
+                        onClick={clearError}
+                        className="text-destructive hover:text-destructive/80 transition-colors"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                </div>
+            )}
+
             {/* Form or Table */}
             {showForm ? (
                 <div className="bg-card text-card-foreground rounded-xl shadow-sm border border-border p-8 space-y-6">
@@ -199,17 +220,39 @@ export default function CategoriesPage() {
                             onClick={() => {
                                 setShowForm(false);
                                 setEditingCategory(undefined);
+                                clearError();
                             }}
                         >
                             <X className="h-4 w-4" />
                         </Button>
                     </div>
+
+                    {/* Form Error Alert */}
+                    {error && (
+                        <div className="bg-destructive/10 border border-destructive rounded-lg p-4 flex items-start gap-3 animate-in slide-in-from-top-2 duration-300">
+                            <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                                <h3 className="fz-14 font-semibold text-destructive mb-1">
+                                    Validation Error
+                                </h3>
+                                <p className="fz-13 text-destructive/90">{error}</p>
+                            </div>
+                            <button
+                                onClick={clearError}
+                                className="text-destructive hover:text-destructive/80 transition-colors"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+                        </div>
+                    )}
+
                     <CategoryForm
                         category={editingCategory}
                         onSubmit={handleSubmit}
                         onCancel={() => {
                             setShowForm(false);
                             setEditingCategory(undefined);
+                            clearError();
                         }}
                         isLoading={isLoading}
                         userEmail={user.email}

@@ -1,6 +1,5 @@
 import { create, StoreApi } from 'zustand';
 import { usersService } from '@/services/usersService';
-import { reportError } from '@/lib/utils';
 import type { User, UpdateUserRequest } from '@/types/users.types';
 
 type UsersState = {
@@ -37,7 +36,7 @@ export const useUsersStore = create<UsersState & UsersActions>(
                 set({ currentUser: user, isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'UsersStore.getUser' });
+                console.error('Error getting user:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -56,7 +55,7 @@ export const useUsersStore = create<UsersState & UsersActions>(
                 }
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'UsersStore.updateUser' });
+                console.error('Error updating user:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -69,7 +68,7 @@ export const useUsersStore = create<UsersState & UsersActions>(
                 set({ currentUser: null, isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'UsersStore.deleteUser' });
+                console.error('Error deleting user:', error);
                 set({ error, isLoading: false });
                 throw error;
             }

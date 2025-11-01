@@ -1,6 +1,5 @@
 import { create, StoreApi } from 'zustand';
 import { productsService } from '@/services/productsService';
-import { reportError } from '@/lib/utils';
 import type {
     Product,
     CreateProductRequest,
@@ -56,7 +55,7 @@ export const useProductsStore = create<ProductsState & ProductsActions>(
                 });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'ProductsStore.getProducts' });
+                console.error('Error getting products:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -69,7 +68,7 @@ export const useProductsStore = create<ProductsState & ProductsActions>(
                 set({ currentProduct: product, isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'ProductsStore.getProduct' });
+                console.error('Error getting product:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -84,7 +83,7 @@ export const useProductsStore = create<ProductsState & ProductsActions>(
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'ProductsStore.createProduct' });
+                console.error('Error creating product:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -103,7 +102,7 @@ export const useProductsStore = create<ProductsState & ProductsActions>(
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'ProductsStore.updateProduct' });
+                console.error('Error updating product:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -122,7 +121,7 @@ export const useProductsStore = create<ProductsState & ProductsActions>(
                 set({ isLoading: false });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'ProductsStore.deleteProduct' });
+                console.error('Error deleting product:', error);
                 set({ error, isLoading: false });
                 throw error;
             }

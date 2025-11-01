@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { verifyEmailSchema, type VerifyEmailFormData } from '@/lib/validations/auth.schema';
 import { authService } from '@/services/authService';
 import { useTranslations } from 'next-intl';
-import { reportError } from '@/lib/utils';
 
 export default function VerifyEmailPage() {
   const tValidation = useTranslations('validation');
@@ -29,7 +28,7 @@ export default function VerifyEmailPage() {
       setEmailSent(true);
     } catch (error) {
       const err = error as Error;
-      reportError(err, { componentStack: 'VerifyEmailPage.onSubmit' });
+      console.error('Error sending verification email:', err);
       setError('root', {
         message: err.message || 'Failed to send verification email',
       });

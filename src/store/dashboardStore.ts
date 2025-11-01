@@ -1,5 +1,4 @@
 import { create, StoreApi } from 'zustand';
-import { reportError } from '@/lib/utils';
 
 // Example types - replace with actual dashboard types
 type DashboardStats = {
@@ -57,7 +56,7 @@ export const useDashboardStore = create<DashboardState & DashboardActions>(
                 });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'DashboardStore.getStats' });
+                console.error('Error getting dashboard stats:', error);
                 set({ error, isLoading: false });
                 throw error;
             }
@@ -79,7 +78,7 @@ export const useDashboardStore = create<DashboardState & DashboardActions>(
                 });
             } catch (err) {
                 const error = err as Error;
-                reportError(error, { componentStack: 'DashboardStore.refreshStats' });
+                console.error('Error refreshing dashboard stats:', error);
             }
         },
 
