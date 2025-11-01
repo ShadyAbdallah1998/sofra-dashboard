@@ -164,7 +164,7 @@ export function DataTable<T = unknown>({
                             {actions && actions.length > 0 && (
                                 <TableCell className={cn(
                                     "w-[200px]",
-                                    isRTL ? "text-right" : "text-lext"
+                                    isRTL ? "text-right" : "text-left"
                                 )}>
                                     <div className={cn(
                                         "flex gap-2",
