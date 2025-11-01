@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useLocale } from '@/hooks/useLocale';
 
 export interface DataTableColumn<T> {
     key: string;
@@ -50,6 +52,7 @@ export function DataTable<T = unknown>({
 }: DataTableProps<T>) {
     const [sortColumn, setSortColumn] = useState<string | null>(null);
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const { isRTL } = useLocale();
 
     const handleSort = (columnKey: string) => {
         if (sortColumn === columnKey) {
@@ -94,30 +97,33 @@ export function DataTable<T = unknown>({
     }
 
     return (
-        <div className="overflow-hidden">
+        <div className="w-full overflow-x-auto">
             <Table>
                 <TableHeader>
                     <TableRow>
                         {columns.map((column) => (
                             <TableHead
                                 key={column.key}
-                                className={column.headerClassName}
+                                className={cn(
+                                    isRTL ? "text-right" : "text-left",
+                                    column.headerClassName
+                                )}
                             >
                                 {column.sortable ? (
                                     <Button
                                         variant="ghost"
                                         onClick={() => handleSort(column.key)}
-                                        className="h-8 px-2 hover:bg-transparent fz-14 font-medium"
+                                        className="h-8 px-2 -mx-2 hover:bg-transparent fz-14 font-medium"
                                     >
                                         {column.header}
                                         {sortColumn === column.key ? (
                                             sortDirection === 'asc' ? (
-                                                <ArrowUp className="ml-2 h-4 w-4" />
+                                                <ArrowUp className="ms-2 h-4 w-4" />
                                             ) : (
-                                                <ArrowDown className="ml-2 h-4 w-4" />
+                                                <ArrowDown className="ms-2 h-4 w-4" />
                                             )
                                         ) : (
-                                            <ArrowUpDown className="ml-2 h-4 w-4 opacity-50" />
+                                            <ArrowUpDown className="ms-2 h-4 w-4 opacity-50" />
                                         )}
                                     </Button>
                                 ) : (
@@ -126,7 +132,10 @@ export function DataTable<T = unknown>({
                             </TableHead>
                         ))}
                         {actions && actions.length > 0 && (
-                            <TableHead className="text-right">
+                            <TableHead className={cn(
+                                "w-[200px]",
+                                isRTL ? "text-right" : "text-left"
+                            )}>
                                 <span className="fz-14 font-medium">Actions</span>
                             </TableHead>
                         )}
@@ -142,7 +151,10 @@ export function DataTable<T = unknown>({
                             {columns.map((column) => (
                                 <TableCell
                                     key={column.key}
-                                    className={column.className}
+                                    className={cn(
+                                        isRTL ? "text-right" : "text-left",
+                                        column.className
+                                    )}
                                 >
                                     {column.render
                                         ? column.render(item)
@@ -150,8 +162,14 @@ export function DataTable<T = unknown>({
                                 </TableCell>
                             ))}
                             {actions && actions.length > 0 && (
-                                <TableCell className="text-right">
-                                    <div className="flex justify-end gap-2">
+                                <TableCell className={cn(
+                                    "w-[200px]",
+                                    isRTL ? "text-right" : "text-lext"
+                                )}>
+                                    <div className={cn(
+                                        "flex gap-2",
+                                        isRTL ? "justify-start" : "justify-end"
+                                    )}>
                                         {actions.map((action, index) => {
                                             const shouldShow = action.show ? action.show(item) : true;
                                             if (!shouldShow) return null;
@@ -168,7 +186,7 @@ export function DataTable<T = unknown>({
                                                     className="fz-12"
                                                 >
                                                     {action.icon && (
-                                                        <span className="mr-1">{action.icon}</span>
+                                                        <span className="me-1">{action.icon}</span>
                                                     )}
                                                     {action.label}
                                                 </Button>

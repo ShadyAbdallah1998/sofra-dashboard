@@ -87,6 +87,8 @@ export default function CategoriesPage() {
         {
             key: 'image',
             header: 'Image',
+            className: 'w-[80px]',
+            headerClassName: 'w-[80px]',
             render: (category: Category) =>
                 category.image ? (
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted shadow-sm">
@@ -108,6 +110,8 @@ export default function CategoriesPage() {
             key: 'name',
             header: 'Name',
             sortable: true,
+            className: 'min-w-[200px]',
+            headerClassName: 'min-w-[200px]',
             render: (category: Category) => (
                 <div className="space-y-1">
                     <p className="fz-14 font-semibold text-foreground">{category.name}</p>
@@ -123,6 +127,8 @@ export default function CategoriesPage() {
             key: 'order',
             header: 'Order',
             sortable: true,
+            className: 'w-[100px]',
+            headerClassName: 'w-[100px]',
             render: (category: Category) => (
                 <span className="fz-14 font-medium text-foreground">{category.order}</span>
             ),
@@ -130,6 +136,8 @@ export default function CategoriesPage() {
         {
             key: 'isActive',
             header: 'Status',
+            className: 'w-[120px]',
+            headerClassName: 'w-[120px]',
             render: (category: Category) => (
                 <span
                     className={`inline-flex items-center px-3 py-1 rounded-full fz-12 font-medium shadow-sm ${category.isActive
@@ -144,6 +152,8 @@ export default function CategoriesPage() {
         {
             key: 'createdBy',
             header: 'Created By',
+            className: 'min-w-[200px]',
+            headerClassName: 'min-w-[200px]',
             render: (category: Category) => (
                 <span className="fz-12 text-muted-foreground">{category.createdBy}</span>
             ),

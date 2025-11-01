@@ -89,6 +89,8 @@ export default function ProductsPage() {
         {
             key: 'image',
             header: 'Image',
+            className: 'w-[80px]',
+            headerClassName: 'w-[80px]',
             render: (product: Product) =>
                 product.image ? (
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted shadow-sm">
@@ -110,6 +112,8 @@ export default function ProductsPage() {
             key: 'name',
             header: 'Name',
             sortable: true,
+            className: 'min-w-[200px]',
+            headerClassName: 'min-w-[200px]',
             render: (product: Product) => (
                 <div className="space-y-1">
                     <p className="fz-14 font-semibold text-foreground">{product.name}</p>
@@ -123,6 +127,8 @@ export default function ProductsPage() {
             key: 'price',
             header: 'Price',
             sortable: true,
+            className: 'w-[100px]',
+            headerClassName: 'w-[100px]',
             render: (product: Product) => (
                 <span className="fz-14 font-semibold text-foreground">${Number(product.price).toFixed(2)}</span>
             ),
@@ -131,6 +137,8 @@ export default function ProductsPage() {
             key: 'calories',
             header: 'Calories',
             sortable: true,
+            className: 'w-[100px]',
+            headerClassName: 'w-[100px]',
             render: (product: Product) => (
                 <span className="fz-14 text-muted-foreground">{product.calories} cal</span>
             ),
@@ -139,6 +147,8 @@ export default function ProductsPage() {
             key: 'order',
             header: 'Order',
             sortable: true,
+            className: 'w-[100px]',
+            headerClassName: 'w-[100px]',
             render: (product: Product) => (
                 <span className="fz-14 font-medium text-foreground">{product.order}</span>
             ),
@@ -146,6 +156,8 @@ export default function ProductsPage() {
         {
             key: 'isActive',
             header: 'Status',
+            className: 'w-[120px]',
+            headerClassName: 'w-[120px]',
             render: (product: Product) => (
                 <span
                     className={`inline-flex items-center px-3 py-1 rounded-full fz-12 font-medium shadow-sm ${product.isActive
