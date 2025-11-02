@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { Category, CreateCategoryRequest, UpdateCategoryRequest } from '@/types/categories.types';
+import { useTranslations } from 'next-intl';
 
 const categorySchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -33,6 +34,7 @@ export default function CategoryForm({
     isLoading,
     userEmail,
 }: CategoryFormProps) {
+    const t = useTranslations('Categories.form');
     const {
         register,
         handleSubmit,
@@ -86,13 +88,13 @@ export default function CategoryForm({
                 {/* Name */}
                 <div className="space-y-2">
                     <label htmlFor="name" className="block fz-14 font-medium text-foreground">
-                        Category Name *
+                        {t('categoryName')} {t('required')}
                     </label>
                     <Input
                         {...register('name')}
                         id="name"
                         type="text"
-                        placeholder="Enter category name"
+                        placeholder={t('categoryNamePlaceholder')}
                         className="fz-14"
                     />
                     {errors.name && (
@@ -103,13 +105,13 @@ export default function CategoryForm({
                 {/* Description */}
                 <div className="space-y-2">
                     <label htmlFor="description" className="block fz-14 font-medium text-foreground">
-                        Description
+                        {t('description')}
                     </label>
                     <textarea
                         {...register('description')}
                         id="description"
                         rows={3}
-                        placeholder="Enter category description"
+                        placeholder={t('descriptionPlaceholder')}
                         className="w-full px-3 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground fz-14"
                     />
                     {errors.description && (
@@ -120,13 +122,13 @@ export default function CategoryForm({
                 {/* Image URL */}
                 <div className="space-y-2">
                     <label htmlFor="image" className="block fz-14 font-medium text-foreground">
-                        Image URL
+                        {t('imageUrl')}
                     </label>
                     <Input
                         {...register('image')}
                         id="image"
                         type="url"
-                        placeholder="https://example.com/image.jpg"
+                        placeholder={t('imageUrlPlaceholder')}
                         className="fz-14"
                     />
                     {errors.image && (
@@ -137,7 +139,7 @@ export default function CategoryForm({
                 {/* Order */}
                 <div className="space-y-2">
                     <label htmlFor="order" className="block fz-14 font-medium text-foreground">
-                        Display Order
+                        {t('displayOrder')}
                     </label>
                     <Input
                         {...register('order', { valueAsNumber: true })}
@@ -162,7 +164,7 @@ export default function CategoryForm({
                         htmlFor="isActive"
                         className="fz-14 text-foreground cursor-pointer select-none"
                     >
-                        Active (visible to customers)
+                        {t('activeLabel')}
                     </label>
                 </div>
             </div>
@@ -174,7 +176,7 @@ export default function CategoryForm({
                     className="fz-16 font-medium"
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Saving...' : category ? 'Update Category' : 'Create Category'}
+                    {isLoading ? t('saving') : category ? t('updateButton') : t('createButton')}
                 </Button>
                 <Button
                     type="button"
@@ -182,7 +184,7 @@ export default function CategoryForm({
                     onClick={onCancel}
                     disabled={isLoading}
                 >
-                    Cancel
+                    {t('cancel')}
                 </Button>
             </div>
         </form>

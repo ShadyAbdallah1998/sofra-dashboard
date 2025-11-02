@@ -9,7 +9,7 @@ export interface User {
   lastUpdatedAt: string;
   firstname?: string;
   lastname?: string;
-  picture?: string;
+  picture?: string | null;
   role?: UserRole;
 }
 
@@ -19,5 +19,5 @@ export interface UpdateUserRequest {
   fullname?: string;
   firstname?: string;
   lastname?: string;
-  picture?: string;
+  picture?: string | null;
 }

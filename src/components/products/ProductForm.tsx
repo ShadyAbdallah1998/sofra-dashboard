@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { Product, CreateProductRequest, UpdateProductRequest } from '@/types/products.types';
+import { useTranslations } from 'next-intl';
 
 const productSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -38,6 +39,7 @@ export default function ProductForm({
     isLoading,
     userEmail,
 }: ProductFormProps) {
+    const t = useTranslations('Products.form');
     const {
         register,
         handleSubmit,
@@ -98,13 +100,13 @@ export default function ProductForm({
                 {/* Name */}
                 <div className="space-y-2">
                     <label htmlFor="name" className="block fz-14 font-medium text-foreground">
-                        Product Name *
+                        {t('productName')} {t('required')}
                     </label>
                     <Input
                         {...register('name')}
                         id="name"
                         type="text"
-                        placeholder="Enter product name"
+                        placeholder={t('productNamePlaceholder')}
                         className="fz-14"
                     />
                     {errors.name && (
@@ -116,14 +118,14 @@ export default function ProductForm({
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <label htmlFor="price" className="block fz-14 font-medium text-foreground">
-                            Price *
+                            {t('price')} {t('required')}
                         </label>
                         <Input
                             {...register('price', { valueAsNumber: true })}
                             id="price"
                             type="number"
                             step="0.01"
-                            placeholder="0.00"
+                            placeholder={t('pricePlaceholder')}
                             className="fz-14"
                         />
                         {errors.price && (
@@ -133,13 +135,13 @@ export default function ProductForm({
 
                     <div className="space-y-2">
                         <label htmlFor="calories" className="block fz-14 font-medium text-foreground">
-                            Calories *
+                            {t('calories')} {t('required')}
                         </label>
                         <Input
                             {...register('calories', { valueAsNumber: true })}
                             id="calories"
                             type="number"
-                            placeholder="0"
+                            placeholder={t('caloriesPlaceholder')}
                             className="fz-14"
                         />
                         {errors.calories && (
@@ -151,7 +153,7 @@ export default function ProductForm({
                 {/* Category */}
                 <div className="space-y-2">
                     <label htmlFor="categoryId" className="block fz-14 font-medium text-foreground">
-                        Category *
+                        {t('category')} {t('required')}
                     </label>
                     <select
                         {...register('categoryId')}
@@ -159,7 +161,7 @@ export default function ProductForm({
                         className="w-full px-3 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground fz-14"
                         disabled={!!product}
                     >
-                        <option value="">Select a category</option>
+                        <option value="">{t('categoryPlaceholder')}</option>
                         {categories.map((category) => (
                             <option key={category.id} value={category.id}>
                                 {category.name}
@@ -174,13 +176,13 @@ export default function ProductForm({
                 {/* Description */}
                 <div className="space-y-2">
                     <label htmlFor="description" className="block fz-14 font-medium text-foreground">
-                        Description
+                        {t('description')}
                     </label>
                     <textarea
                         {...register('description')}
                         id="description"
                         rows={3}
-                        placeholder="Enter product description"
+                        placeholder={t('descriptionPlaceholder')}
                         className="w-full px-3 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground fz-14"
                     />
                     {errors.description && (
@@ -191,13 +193,13 @@ export default function ProductForm({
                 {/* Image URL */}
                 <div className="space-y-2">
                     <label htmlFor="image" className="block fz-14 font-medium text-foreground">
-                        Image URL
+                        {t('imageUrl')}
                     </label>
                     <Input
                         {...register('image')}
                         id="image"
                         type="url"
-                        placeholder="https://example.com/image.jpg"
+                        placeholder={t('imageUrlPlaceholder')}
                         className="fz-14"
                     />
                     {errors.image && (
@@ -208,7 +210,7 @@ export default function ProductForm({
                 {/* Order */}
                 <div className="space-y-2">
                     <label htmlFor="order" className="block fz-14 font-medium text-foreground">
-                        Display Order
+                        {t('displayOrder')}
                     </label>
                     <Input
                         {...register('order', { valueAsNumber: true })}
@@ -233,7 +235,7 @@ export default function ProductForm({
                         htmlFor="isActive"
                         className="fz-14 text-foreground cursor-pointer select-none"
                     >
-                        Active (visible to customers)
+                        {t('activeLabel')}
                     </label>
                 </div>
             </div>
@@ -245,7 +247,7 @@ export default function ProductForm({
                     className="fz-16 font-medium"
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Saving...' : product ? 'Update Product' : 'Create Product'}
+                    {isLoading ? t('saving') : product ? t('updateButton') : t('createButton')}
                 </Button>
                 <Button
                     type="button"
@@ -253,7 +255,7 @@ export default function ProductForm({
                     onClick={onCancel}
                     disabled={isLoading}
                 >
-                    Cancel
+                    {t('cancel')}
                 </Button>
             </div>
         </form>

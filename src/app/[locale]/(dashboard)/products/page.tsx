@@ -9,8 +9,10 @@ import ProductForm from '@/components/products/ProductForm';
 import type { Product, CreateProductRequest, UpdateProductRequest } from '@/types/products.types';
 import { Edit, Trash2, Plus, X, Package } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function ProductsPage() {
+    const t = useTranslations('Products');
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
     const [editingProduct, setEditingProduct] = useState<Product | undefined>();
@@ -67,7 +69,7 @@ export default function ProductsPage() {
     };
 
     const handleDelete = async (product: Product) => {
-        if (confirm(`Delete "${product.name}"?`)) {
+        if (confirm(t('deleteConfirm', { name: product.name }))) {
             try {
                 await deleteProduct(product.id);
             } catch (error) {
@@ -88,7 +90,7 @@ export default function ProductsPage() {
     const columns = [
         {
             key: 'image',
-            header: 'Image',
+            header: t('image'),
             className: 'w-[80px]',
             headerClassName: 'w-[80px]',
             render: (product: Product) =>
@@ -110,7 +112,7 @@ export default function ProductsPage() {
         },
         {
             key: 'name',
-            header: 'Name',
+            header: t('name'),
             sortable: true,
             className: 'min-w-[200px]',
             headerClassName: 'min-w-[200px]',
@@ -125,7 +127,7 @@ export default function ProductsPage() {
         },
         {
             key: 'price',
-            header: 'Price',
+            header: t('price'),
             sortable: true,
             className: 'w-[100px]',
             headerClassName: 'w-[100px]',
@@ -135,7 +137,7 @@ export default function ProductsPage() {
         },
         {
             key: 'calories',
-            header: 'Calories',
+            header: t('calories'),
             sortable: true,
             className: 'w-[100px]',
             headerClassName: 'w-[100px]',
@@ -145,7 +147,7 @@ export default function ProductsPage() {
         },
         {
             key: 'order',
-            header: 'Order',
+            header: t('order'),
             sortable: true,
             className: 'w-[100px]',
             headerClassName: 'w-[100px]',
@@ -155,7 +157,7 @@ export default function ProductsPage() {
         },
         {
             key: 'isActive',
-            header: 'Status',
+            header: t('status'),
             className: 'w-[120px]',
             headerClassName: 'w-[120px]',
             render: (product: Product) => (
@@ -165,7 +167,7 @@ export default function ProductsPage() {
                             : 'bg-destructive/10 text-destructive border border-destructive/20'
                         }`}
                 >
-                    {product.isActive ? 'Active' : 'Inactive'}
+                    {product.isActive ? t('active') : t('inactive')}
                 </span>
             ),
         },
@@ -173,13 +175,13 @@ export default function ProductsPage() {
 
     const actions = [
         {
-            label: 'Edit',
+            label: t('edit'),
             onClick: handleEdit,
             variant: 'outline' as const,
             icon: <Edit className="h-3 w-3" />,
         },
         {
-            label: 'Delete',
+            label: t('delete'),
             onClick: handleDelete,
             variant: 'destructive' as const,
             icon: <Trash2 className="h-3 w-3" />,
@@ -191,15 +193,15 @@ export default function ProductsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                    <h1 className="fz-25 font-bold text-foreground">Products</h1>
+                    <h1 className="fz-25 font-bold text-foreground">{t('title')}</h1>
                     <p className="fz-14 text-muted-foreground">
-                        Manage your restaurant products
+                        {t('subtitle')}
                     </p>
                 </div>
                 {!showForm && (
                     <Button onClick={handleCreate} className="gap-2 shadow-sm">
                         <Plus className="h-4 w-4" />
-                        Add Product
+                        {t('addProduct')}
                     </Button>
                 )}
             </div>
@@ -210,10 +212,10 @@ export default function ProductsPage() {
                     <div className="flex items-center justify-between">
                         <div className="space-y-1">
                             <h2 className="fz-20 font-semibold text-foreground">
-                                {editingProduct ? 'Edit Product' : 'Create New Product'}
+                                {editingProduct ? t('editProduct') : t('createProduct')}
                             </h2>
                             <p className="fz-12 text-muted-foreground">
-                                {editingProduct ? 'Update product information' : 'Add a new product to your menu'}
+                                {editingProduct ? t('updateInfo') : t('addNewProduct')}
                             </p>
                         </div>
                         <Button
@@ -247,7 +249,7 @@ export default function ProductsPage() {
                             columns={columns}
                             actions={actions}
                             isLoading={isLoading}
-                            emptyMessage="No products found. Create your first product to get started."
+                            emptyMessage={t('noProducts')}
                             keyExtractor={(product) => product.id}
                         />
                     </div>
@@ -256,7 +258,7 @@ export default function ProductsPage() {
                     {pagination && pagination.lastPage > 1 && (
                         <div className="flex items-center justify-between bg-card text-card-foreground rounded-xl shadow-sm border border-border p-4">
                             <p className="fz-14 text-muted-foreground">
-                                Showing page {pagination.page} of {pagination.lastPage} ({pagination.total} total)
+                                {t('showingPage', { page: pagination.page, lastPage: pagination.lastPage, total: pagination.total })}
                             </p>
                             <div className="flex gap-2">
                                 <Button
@@ -265,7 +267,7 @@ export default function ProductsPage() {
                                     disabled={pagination.page === 1}
                                     className="shadow-sm"
                                 >
-                                    Previous
+                                    {t('previous')}
                                 </Button>
                                 <Button
                                     variant="outline"
@@ -273,7 +275,7 @@ export default function ProductsPage() {
                                     disabled={pagination.page === pagination.lastPage}
                                     className="shadow-sm"
                                 >
-                                    Next
+                                    {t('next')}
                                 </Button>
                             </div>
                         </div>

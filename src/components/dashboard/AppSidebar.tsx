@@ -4,6 +4,7 @@ import { useRouter, usePathname } from '@/i18n/navigation';
 import { useAuthStore } from '@/store';
 import { useLocale } from '@/hooks/useLocale';
 import { useTranslations } from 'next-intl';
+import { getInitials, getAvatarColor, isValidImageUrl, AvatarPreview } from '@/lib/helpers/avatar';
 import {
     Sidebar,
     SidebarContent,
@@ -108,13 +109,35 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter className="border-t border-sidebar-border p-4">
-                <div className="mb-3 px-2">
-                    <p className="fz-14 font-medium text-sidebar-foreground truncate">
-                        {user?.fullname || 'User'}
-                    </p>
-                    <p className="fz-12 text-sidebar-foreground/60 truncate">
-                        {user?.email}
-                    </p>
+                <div className="flex items-center gap-3 mb-3 px-2">
+                    {/* User Avatar */}
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden bg-muted border-2 border-sidebar-border shrink-0 flex items-center justify-center group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:h-8">
+                        {isValidImageUrl(user?.picture) ? (
+                            <AvatarPreview
+                                url={user!.picture!}
+                                firstname={user?.firstname}
+                                lastname={user?.lastname}
+                                userEmail={user?.email || ''}
+                                size="40px"
+                            />
+                        ) : (
+                            <div className={`w-full h-full flex items-center justify-center ${getAvatarColor(user?.email || '')}`}>
+                                <span className="text-white font-semibold fz-14 group-data-[collapsible=icon]:fz-12">
+                                    {getInitials(user?.firstname, user?.lastname)}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* User Info */}
+                    <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
+                        <p className="fz-14 font-medium text-sidebar-foreground truncate">
+                            {user?.fullname || 'User'}
+                        </p>
+                        <p className="fz-12 text-sidebar-foreground/60 truncate">
+                            {user?.email}
+                        </p>
+                    </div>
                 </div>
                 <SidebarMenu>
                     <SidebarMenuItem>

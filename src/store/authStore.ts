@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { authService } from '@/services/authService';
 import type { User } from '@/types/users.types';
-import type { LoginRequest, ChangePasswordRequest } from '@/types/auth.types';
+import type { LoginRequest, ChangePasswordRequest, SendVerifyEmailRequest } from '@/types/auth.types';
 
 type AuthState = {
   user: User | null;
@@ -17,6 +17,7 @@ type AuthActions = {
   setUser: (user: User) => void;
   clearUser: () => void;
   changePassword: (data: ChangePasswordRequest) => Promise<void>;
+  sendVerifyEmail: (data: SendVerifyEmailRequest) => Promise<void>;
   setHasHydrated: (state: boolean) => void;
   clearError: () => void;
   reset: () => void;
@@ -78,6 +79,19 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         } catch (err) {
           const error = err as Error;
           console.error('Change password error:', error);
+          set({ error, isLoading: false });
+          throw error;
+        }
+      },
+
+      sendVerifyEmail: async (data: SendVerifyEmailRequest) => {
+        set({ isLoading: true, error: undefined });
+        try {
+          await authService.sendVerifyEmail(data);
+          set({ isLoading: false });
+        } catch (err) {
+          const error = err as Error;
+          console.error('Send verify email error:', error);
           set({ error, isLoading: false });
           throw error;
         }
