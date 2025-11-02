@@ -2,14 +2,17 @@
 
 import { AlertCircle } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 interface ConfirmationDialogProps {
@@ -59,7 +62,7 @@ export const ConfirmationDialog = ({
     variant === "destructive" ? "text-destructive" : "text-primary";
 
   return (
-    <Dialog
+    <AlertDialog
       open={open}
       onOpenChange={(isOpen) => {
         if (!isOpen) {
@@ -67,11 +70,8 @@ export const ConfirmationDialog = ({
         }
       }}
     >
-      <DialogContent
-        className="rounded-xl shadow-sm border-border max-w-md"
-        showCloseButton={true}
-      >
-        <DialogHeader>
+      <AlertDialogContent className="rounded-xl shadow-sm border-border max-w-md">
+        <AlertDialogHeader>
           <div className="flex items-start gap-4">
             <div
               className={`flex-shrink-0 w-10 h-10 rounded-full ${iconBgColor} flex items-center justify-center`}
@@ -79,35 +79,39 @@ export const ConfirmationDialog = ({
               <div className={iconTextColor}>{iconElement}</div>
             </div>
             <div className="flex-1 space-y-2">
-              <DialogTitle className="fz-18 font-semibold text-foreground text-left">
+              <AlertDialogTitle className="fz-18 font-semibold text-foreground text-left">
                 {title}
-              </DialogTitle>
-              <DialogDescription className="fz-14 text-muted-foreground text-left">
+              </AlertDialogTitle>
+              <AlertDialogDescription className="fz-14 text-muted-foreground text-left">
                 {description}
-              </DialogDescription>
+              </AlertDialogDescription>
             </div>
           </div>
-        </DialogHeader>
-        <DialogFooter className="gap-2 sm:gap-2">
-          <Button
-            variant="outline"
+        </AlertDialogHeader>
+        <AlertDialogFooter className="gap-2 sm:gap-2">
+          <AlertDialogCancel
             onClick={handleCancel}
-            className="shadow-sm"
+            className={cn(
+              "shadow-sm",
+              isLoading && "pointer-events-none opacity-50"
+            )}
             disabled={isLoading}
           >
             {cancelLabel}
-          </Button>
-          <Button
-            variant={variant}
+          </AlertDialogCancel>
+          <AlertDialogAction
             onClick={handleConfirm}
+            className={cn(
+              buttonVariants({ variant }),
+              "shadow-sm",
+              isLoading && "pointer-events-none opacity-50"
+            )}
             disabled={isLoading}
-            className="shadow-sm"
           >
             {confirmLabel}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
-
