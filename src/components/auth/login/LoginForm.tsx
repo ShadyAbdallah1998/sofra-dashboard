@@ -84,7 +84,7 @@ export default function LoginForm() {
             {t('password')}
           </label>
           <Link
-            href="/auth/forgot-password"
+            href="/auth/reset-password"
             className="fz-12 text-muted-foreground hover:text-foreground transition-colors"
           >
             {t('forgotPassword')}

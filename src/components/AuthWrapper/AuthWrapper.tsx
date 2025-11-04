@@ -9,7 +9,7 @@ interface AuthWrapperProps {
   children: React.ReactNode;
 }
 
-// Simple check: does the path include '/auth/'?
+// Check if it's an auth page (login, forgot-password, verify-email, reset-password, etc.)
 const isAuthPage = (pathname: string) => pathname.includes('/auth/');
 
 export default function AuthWrapper({ children }: AuthWrapperProps) {
@@ -23,6 +23,15 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     if (!hasHydrated) return;
 
     const isAuth = isAuthPage(pathname);
+
+    // Allow verify-email and reset-password token pages for both logged-in and logged-out users
+    const isVerifyEmailPage = pathname.includes('/auth/verify-email/') && pathname.split('/').length > 4;
+    const isResetPasswordPage = pathname.includes('/auth/reset-password/') && pathname.split('/').length > 4;
+
+    // Skip redirect logic for token-based auth pages
+    if (isVerifyEmailPage || isResetPasswordPage) {
+      return;
+    }
 
     // If user is logged in and on auth page, redirect to dashboard
     if (user && isAuth) {

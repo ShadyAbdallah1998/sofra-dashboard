@@ -18,6 +18,7 @@ type AuthActions = {
   clearUser: () => void;
   changePassword: (data: ChangePasswordRequest) => Promise<void>;
   sendVerifyEmail: (data: SendVerifyEmailRequest) => Promise<void>;
+  verifyEmail: (token: string) => Promise<void>;
   setHasHydrated: (state: boolean) => void;
   clearError: () => void;
   reset: () => void;
@@ -92,6 +93,28 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         } catch (err) {
           const error = err as Error;
           console.error('Send verify email error:', error);
+          set({ error, isLoading: false });
+          throw error;
+        }
+      },
+
+      verifyEmail: async (token: string) => {
+        set({ isLoading: true, error: undefined });
+        try {
+          await authService.verifyEmail(token);
+          // Update user's emailVerified status if they're logged in
+          const currentUser = useAuthStore.getState().user;
+          if (currentUser) {
+            set({
+              user: { ...currentUser, emailVerified: true },
+              isLoading: false
+            });
+          } else {
+            set({ isLoading: false });
+          }
+        } catch (err) {
+          const error = err as Error;
+          console.error('Verify email error:', error);
           set({ error, isLoading: false });
           throw error;
         }
