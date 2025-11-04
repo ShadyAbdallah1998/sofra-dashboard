@@ -21,6 +21,7 @@
     "dashboard": "Dashboard",
     "categories": "Categories",
     "products": "Products",
+    "userRoles": "User Roles",
     "profile": "Profile",
     "logout": "Logout"
   },
@@ -203,6 +204,52 @@
       "successMessage": "Your password has been reset. You can now login with your new password.",
       "errorTitle": "Reset Failed",
       "errorMessage": "The reset link is invalid or has expired. Please request a new password reset email."
+    }
+  },
+  "RolesManagement": {
+    "title": "User Roles Management",
+    "subtitle": "Manage staff team roles and permissions",
+    "addUser": "Add User",
+    "editRole": "Edit Role",
+    "deleteUser": "Delete User",
+    "createUser": "Add New User",
+    "updateRole": "Update User Role",
+    "deleteConfirm": "Delete \"{name}\"?",
+    "deleteWarning": "This action will remove the user's role. This action cannot be undone.",
+    "email": "Email",
+    "emailPlaceholder": "username@example.com",
+    "fullname": "Full Name",
+    "fullnamePlaceholder": "John Doe",
+    "role": "Role",
+    "selectRole": "Select a role",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "noUsers": "No users found. Add your first user to get started.",
+    "showingPage": "Showing page {page} of {lastPage} ({total} total)",
+    "previous": "Previous",
+    "next": "Next",
+    "roles": {
+      "admin": "Admin",
+      "moderator": "Moderator",
+      "staff": "Staff"
+    },
+    "success": {
+      "userAdded": "User added successfully",
+      "roleUpdated": "Role updated successfully",
+      "userDeleted": "User deleted successfully"
+    },
+    "errors": {
+      "addFailed": "Failed to add user",
+      "updateFailed": "Failed to update role",
+      "deleteFailed": "Failed to delete user",
+      "loadFailed": "Failed to load users"
     }
   },
   "validation": {

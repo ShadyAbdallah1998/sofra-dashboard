@@ -23,6 +23,7 @@ import {
     User,
     LogOut,
     Store,
+    Shield,
 } from 'lucide-react';
 
 export function AppSidebar() {
@@ -49,6 +50,11 @@ export function AppSidebar() {
             title: t('products'),
             url: '/products',
             icon: Package,
+        },
+        {
+            title: t('userRoles'),
+            url: '/user-roles',
+            icon: Shield,
         },
         {
             title: t('profile'),

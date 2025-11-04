@@ -21,6 +21,7 @@
     "dashboard": "لوحة التحكم",
     "categories": "التصنيفات",
     "products": "المنتجات",
+    "userRoles": "أدوار المستخدمين",
     "profile": "الملف الشخصي",
     "logout": "تسجيل الخروج"
   },
@@ -203,6 +204,52 @@
       "successMessage": "تم إعادة تعيين كلمة المرور. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
       "errorTitle": "فشلت إعادة التعيين",
       "errorMessage": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية. يرجى طلب بريد إعادة تعيين جديد."
+    }
+  },
+  "RolesManagement": {
+    "title": "إدارة أدوار المستخدمين",
+    "subtitle": "إدارة أدوار وصلاحيات فريق العمل",
+    "addUser": "إضافة مستخدم",
+    "editRole": "تعديل الدور",
+    "deleteUser": "حذف مستخدم",
+    "createUser": "إضافة مستخدم جديد",
+    "updateRole": "تحديث دور المستخدم",
+    "deleteConfirm": "حذف \"{name}\"؟",
+    "deleteWarning": "سيؤدي هذا الإجراء إلى إزالة دور المستخدم. لا يمكن التراجع عن هذا الإجراء.",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "username@example.com",
+    "fullname": "الاسم الكامل",
+    "fullnamePlaceholder": "أحمد محمد",
+    "role": "الدور",
+    "selectRole": "اختر دوراً",
+    "createdAt": "تاريخ الإنشاء",
+    "updatedAt": "تاريخ التحديث",
+    "actions": "الإجراءات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "deleting": "جاري الحذف...",
+    "noUsers": "لا يوجد مستخدمين. قم بإضافة أول مستخدم للبدء.",
+    "showingPage": "عرض صفحة {page} من {lastPage} ({total} إجمالي)",
+    "previous": "السابق",
+    "next": "التالي",
+    "roles": {
+      "admin": "مسؤول",
+      "moderator": "مشرف",
+      "staff": "موظف"
+    },
+    "success": {
+      "userAdded": "تمت إضافة المستخدم بنجاح",
+      "roleUpdated": "تم تحديث الدور بنجاح",
+      "userDeleted": "تم حذف المستخدم بنجاح"
+    },
+    "errors": {
+      "addFailed": "فشل إضافة المستخدم",
+      "updateFailed": "فشل تحديث الدور",
+      "deleteFailed": "فشل حذف المستخدم",
+      "loadFailed": "فشل تحميل المستخدمين"
     }
   },
   "validation": {
